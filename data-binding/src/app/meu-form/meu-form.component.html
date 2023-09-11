@@ -1,0 +1,34 @@
+<section class="two-way-binding">
+  <article>
+    <h3>Two-way data binding</h3>
+    <div>
+
+      <input type="text" [value]="nome" (input)="atualizarNome($event)"/>
+
+      <!-- O dela não compilou na minha versão -->
+      <input type="text" [ngModel]="nome" (ngModelChange)="atualizarNome($event)"/>
+
+      <!-- Nenhum desses que ela mostrou estão funcionando nessa versão. Porra, Loiane. -->
+      <input type="text" [(ngModel)]="nome" />
+
+      <!-- [()] caixa de banana -->
+
+      <!-- NADA FUNCIONA LOIANE -->
+      <input type="text" bindon-ngModel="nome" />
+
+      <!-- TAVA FALTANDO O FORMSMODULE DONA LOIANE AAAAAAAAAAA -->
+      <!-- Ela fala do FormsModule, só que antes, o Angular já importava automaticamente. Isso mudou. -->
+
+      <p>Você digitou: {{ nome }}</p>
+    </div>
+
+    <div>
+
+      <p>Meu nome é {{ pessoa.nome }} e tenho {{ pessoa.idade }} anos de idade.</p>
+
+      <input type="text" [(ngModel)]="pessoa.nome">
+      <input type="text" [(ngModel)]="pessoa.idade">
+
+    </div>
+  </article>
+</section>
