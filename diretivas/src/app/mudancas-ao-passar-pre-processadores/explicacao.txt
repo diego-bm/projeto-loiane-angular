@@ -1,0 +1,4 @@
+No Angular CLI, já não é mais possível iniciar projetos com o Stylus como pré-processador de estilo. Além disso, o Angular CLI já
+não cria mais projetos com o CSS puro como estilo padrão: você tem a opção de escolher pré-processadores, no caso o sass, scss ou
+less. Também pode escolher CSS puro ou nenhum arquivo de estilo. Os parâmetros de estilo ainda funcionam, e podem ser passados ao
+gerar um novo componente no Angular CLI, do mesmo jeito explicado na aula, sem mudanças.

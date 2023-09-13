@@ -1,0 +1,2 @@
+O comando ng set foi substituído em versões mais novas do Angular CLI pelo comando ng config, com algumas nomenclaturas diferentes
+para as configurações que ele altera, também.
