@@ -7,7 +7,8 @@
 
     <app-curso [nome]="nomeDoCurso"></app-curso>
 
-    <contador [valor]="10"></contador>
+    <!-- Valores hard-coded (chumbados) não precisam de property binding ([]) -->
+    <contador [valor]="10" (mudouValor)="onMudouValor($event)"></contador>
 
   </article>
 </section>
