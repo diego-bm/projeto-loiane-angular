@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./diretivas-customizadas.component.css']
 })
 export class DiretivasCustomizadasComponent {
+  mostrarCursos: boolean = false;
 
+  onMostrarCursos(){
+    this.mostrarCursos = !this.mostrarCursos;
+  }
 }
