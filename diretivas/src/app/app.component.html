@@ -2,4 +2,20 @@
 <!-- <app-diretiva-ngfor></app-diretiva-ngfor> -->
 <!-- <app-diretiva-ngclass></app-diretiva-ngclass> -->
 <!-- <app-diretiva-ngstyle></app-diretiva-ngstyle> -->
-<app-operador-elvis></app-operador-elvis>
+<!-- <app-operador-elvis></app-operador-elvis> -->
+<!-- <app-exemplo-ng-content>
+    Conteúdo passado para o componente.
+    <app-operador-elvis></app-operador-elvis>
+</app-exemplo-ng-content> -->
+
+<app-exemplo-ng-content>
+    <div class="titulo">Título do painel</div>
+    <div class="corpo">
+        Corpo do painel
+    </div>
+    <!-- Se passar a mesma tag duas ou mais vezes no ng-content,
+    o Angular vai concatenar os conteudos -->
+    <div class="corpo">
+        Corpo do painel 2
+    </div>
+</app-exemplo-ng-content>
