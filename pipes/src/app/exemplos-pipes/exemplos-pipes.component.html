@@ -1,0 +1,12 @@
+<h5>Exemplos de Pipes</h5>
+
+<p>Título: {{ livro.titulo | uppercase | lowercase }}</p>
+<p>Estrelas: {{ livro.rating | number:'1.1-1' }}</p>
+<p>Páginas: {{ livro.numeroPaginas | number }}</p>
+<!-- Agora o pipe de currency já vem com o símbolo da moeda.
+Se quiser pode usar o parâmetro false na frente pra mostrar o código -->
+<p>Preço: {{ livro.preco | currency:'BRL':true }}</p>
+<p>Data Lançamento: {{ livro.dataLancamento | date:'dd/MM/yyyy' }}</p>
+<p>URL: {{ livro.url }}</p>
+<br/>
+<p>Livro: {{ livro | json }}</p>

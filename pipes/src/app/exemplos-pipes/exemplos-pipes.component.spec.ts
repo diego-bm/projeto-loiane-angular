@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ExemplosPipesComponent } from './exemplos-pipes.component';
+
+describe('ExemplosPipesComponent', () => {
+  let component: ExemplosPipesComponent;
+  let fixture: ComponentFixture<ExemplosPipesComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ExemplosPipesComponent]
+    });
+    fixture = TestBed.createComponent(ExemplosPipesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
