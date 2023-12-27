@@ -4,6 +4,13 @@
   "newProjectRoot": "projects",
   "projects": {
     "pipes": {
+      "i18n": {
+        "sourceLocale": "pt-BR",
+        "locales": {
+          "es-PR": "src/locale/messages.es.xlf",
+          "en-US": "src/locale/messages.en.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -45,6 +52,14 @@
               ],
               "outputHashing": "all"
             },
+            "es-PR": {
+              "localize": ["es-PR"],
+              "outputPath": "dist/pipes/es-PR"
+            },
+            "en-US": {
+              "localize": ["en-US"],
+              "outputPath": "dist/pipes/en-US"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -61,6 +76,12 @@
           "configurations": {
             "production": {
               "browserTarget": "pipes:build:production"
+            },
+            "es-PR": {
+              "browserTarget": "pipes:build:es-PR"
+            },
+            "en-US": {
+              "browserTarget": "pipes:build:en-US"
             },
             "development": {
               "browserTarget": "pipes:build:development"

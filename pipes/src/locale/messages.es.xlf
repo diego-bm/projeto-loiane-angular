@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="1737753151350322492" datatype="html">
+        <source><x id="PH" equiv-text="this.title"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1687901027244618718" datatype="html">
+        <source>Exemplos de Pipes</source>
+        <target>Ejemplos de Pipes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6406628816405496444" datatype="html">
+        <source>Título: <x id="INTERPOLATION" equiv-text="{{ livro.titulo | uppercase | lowercase | camelCase }}"/></source>
+        <target>Título: <x id="INTERPOLATION" equiv-text="{{ livro.titulo | uppercase | lowercase | camelCase }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3360435562121929983" datatype="html">
+        <source>Estrelas: <x id="INTERPOLATION" equiv-text="{{ livro.rating | number:&apos;1.1-1&apos; }}"/></source>
+        <target>Estrellas: <x id="INTERPOLATION" equiv-text="{{ livro.rating | number:&apos;1.1-1&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7504708112262162352" datatype="html">
+        <source>Páginas: <x id="INTERPOLATION" equiv-text="{{ livro.numeroPaginas | number }}"/></source>
+        <target>Páginas: <x id="INTERPOLATION" equiv-text="{{ livro.numeroPaginas | number }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6586539110359359802" datatype="html">
+        <source>Preço: <x id="INTERPOLATION" equiv-text="{{ livro.preco | currency:&apos;BRL&apos;:true }}"/></source>
+        <target>Precio: <x id="INTERPOLATION" equiv-text="{{ livro.preco | currency:&apos;BRL&apos;:true }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3514890348152603457" datatype="html">
+        <source>Data Lançamento: <x id="INTERPOLATION" equiv-text="{{ livro.dataLancamento | date:&apos;dd/MM/yyyy&apos; }}"/></source>
+        <target>Fecha de publicación: <x id="INTERPOLATION" equiv-text="{{ livro.dataLancamento | date:&apos;dd/MM/yyyy&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3967922989883465417" datatype="html">
+        <source>Livro: <x id="INTERPOLATION" equiv-text="{{ livro | json }}"/></source>
+        <target>Libro: <x id="INTERPOLATION" equiv-text="{{ livro | json }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exemplos-pipes/exemplos-pipes.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

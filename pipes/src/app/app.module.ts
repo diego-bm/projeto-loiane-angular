@@ -14,7 +14,23 @@ import { CamelCasePipe } from './camel-case.pipe';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    // Isso aqui não funcionou.
+    // {
+    //   provide: LOCALE_ID,
+    //   useValue: 'fr-CA'//,
+    //   // useClass: ,
+    //   // useFactory:
+    // }
+
+    // Nada funcionou
+    // SettingsService,
+    // {
+    //   provide: LOCALE_ID,
+    //   deps: [SettingsService],
+    //   useFactory: (settingsService: SettingsService) => settingsService.getLocale()
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
