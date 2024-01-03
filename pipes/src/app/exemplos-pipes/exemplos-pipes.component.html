@@ -10,3 +10,19 @@ Se quiser pode usar o parâmetro false na frente pra mostrar o código -->
 <p>URL: {{ livro.url }}</p>
 <br/>
 <p i18n>Livro: {{ livro | json }}</p>
+
+<input type="text" [(ngModel)]="filtro">
+<br/>
+<input type="text" #novoValor>
+<button (click)="addCurso(novoValor.value)">Add Curso</button>
+
+<ul>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * DISCLAIMER: FILTROS DE ARRAY NÃO DEVEM SER UTILIZADOS EM  *
+     *   PROJETOS REAIS, E ESTARÃO SENDO FEITOS APENAS COMO UM   *
+     *  EXEMPLO. O JEITO CORRETO SERÁ MOSTRADO NA PRÓXIMA AULA!  *
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <li *ngFor="let liv of livros | filtroArray:filtro">
+        {{ liv }}
+    </li>
+</ul>
