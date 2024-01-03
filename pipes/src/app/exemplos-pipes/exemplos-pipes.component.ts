@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-exemplos-pipes',
@@ -37,4 +38,22 @@ export class ExemplosPipesComponent {
       }
     );
   }
+
+  valorAsync = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('Valor assíncrono'), 2000)
+  });
+
+  // A forma de lidar com Observables mudou totalmente comparado ao
+  // código da aula
+  // Método antigo:
+  // valorAsync2 = Observable.interval(2000).map(valor => 'Valor assíncrono 2');
+
+  // Método atual:
+  valorAsync2 = new Observable(subscriber => {
+    setTimeout(() => {
+      subscriber.next('Valor assíncrono 2');
+      subscriber.complete();
+      subscriber.unsubscribe();
+    }, 2000)
+  });
 }
