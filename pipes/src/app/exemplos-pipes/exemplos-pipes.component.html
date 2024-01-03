@@ -16,6 +16,8 @@ Se quiser pode usar o parâmetro false na frente pra mostrar o código -->
 <input type="text" #novoValor>
 <button (click)="addCurso(novoValor.value)">Add Curso</button>
 
+<h5>Pipe Puro</h5>
+
 <ul>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * DISCLAIMER: FILTROS DE ARRAY NÃO DEVEM SER UTILIZADOS EM  *
@@ -23,6 +25,29 @@ Se quiser pode usar o parâmetro false na frente pra mostrar o código -->
      *  EXEMPLO. O JEITO CORRETO SERÁ MOSTRADO NA PRÓXIMA AULA!  *
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
     <li *ngFor="let liv of livros | filtroArray:filtro">
+        {{ liv }}
+    </li>
+</ul>
+
+<h5>Pipe Impuro</h5>
+
+<ul>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * DISCLAIMER: FILTROS DE ARRAY NÃO DEVEM SER UTILIZADOS EM  *
+     *   PROJETOS REAIS, E ESTARÃO SENDO FEITOS APENAS COMO UM   *
+     *  EXEMPLO. O JEITO CORRETO SERÁ MOSTRADO NA PRÓXIMA AULA!  *
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+     <!-- PIPES NÃO DEVEM SER UTILIZADOS PARA FAZER ORDERBY NEM FILTROS
+     EM ARRAYS -->
+    <li *ngFor="let liv of livros | filtroArrayImpuro:filtro">
+        {{ liv }}
+    </li>
+</ul>
+
+<h5>Maneira correta de usar filtro nos projetos</h5>
+
+<ul>
+    <li *ngFor="let liv of obterCursos()">
         {{ liv }}
     </li>
 </ul>

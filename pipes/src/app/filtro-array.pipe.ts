@@ -1,3 +1,4 @@
+// Pipe puro: não lê as modificações feitas no material filtrado
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
