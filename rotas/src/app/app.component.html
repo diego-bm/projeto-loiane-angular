@@ -13,13 +13,13 @@ https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-w
         <!-- Tive que importar o mat-nav-list separadamente.
         Tudo nesse maldito framework tem que ser desnecessariamente complicado. -->
         <mat-nav-list>
-            <a routerLink="/login" mat-list-item>
+            <a routerLink="/login" routerLinkActive="active" class="sidenav-item" mat-list-item>
                 <span class="entry">
                     <mat-icon>person_outline</mat-icon>
                     <span *ngIf="!isCollapsed">Login</span>
                 </span>
             </a>
-            <a routerLink="/cursos" mat-list-item>
+            <a routerLink="/cursos" routerLinkActive="active" mat-list-item>
                 <span class="entry">
                     <mat-icon>book</mat-icon>
                     <span *ngIf="!isCollapsed">Cursos</span>
