@@ -1,1 +1,36 @@
-<router-outlet></router-outlet>
+<!-- Agradecimentos vão a esse tutorial:
+https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-with-material-angular-o5l#:~:text=How%20to%20create%20a%20responsive%20sidebar%20and%20mini,...%207%20Step%207%3A%20Collapsing%20the%20navigation%20 -->
+
+<mat-toolbar color="primary">
+    <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink=""><h1>Rotas Ng2</h1></a>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [opened]="isMobile ? 'false' : 'true'" [mode]="isMobile ? 'over' : 'side'">
+        <!-- Tive que importar o mat-nav-list separadamente.
+        Tudo nesse maldito framework tem que ser desnecessariamente complicado. -->
+        <mat-nav-list>
+            <a routerLink="/login" mat-list-item>
+                <span class="entry">
+                    <mat-icon>person_outline</mat-icon>
+                    <span *ngIf="!isCollapsed">Login</span>
+                </span>
+            </a>
+            <a routerLink="/cursos" mat-list-item>
+                <span class="entry">
+                    <mat-icon>book</mat-icon>
+                    <span *ngIf="!isCollapsed">Cursos</span>
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
