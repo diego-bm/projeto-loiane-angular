@@ -1,1 +1,6 @@
-<p>cursos works!</p>
+<mat-nav-list>
+    <a mat-list-item href="..." *ngFor="let curso of cursos"
+    [routerLink]="['/curso', curso.id]">
+        {{ curso.nome }}
+    </a>
+</mat-nav-list>
