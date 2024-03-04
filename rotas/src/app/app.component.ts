@@ -20,6 +20,7 @@ export class AppComponent {
   sidenav!: MatSidenav;
   isMobile: boolean = true;
   isCollapsed: boolean = true;
+  idCurso: number = 0;
 
   constructor(private observer: BreakpointObserver) {}
 
