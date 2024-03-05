@@ -1,3 +1,8 @@
+// Aula 57: se ainda fosse possível fazer o roteamento da forma que a
+// Loiane inicialmente mostrou, eu teria que remover o "routing"
+// daqui. Como eu inicialmente já fiz do jeito moderno, isso não foi
+// necessário.
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +33,9 @@ import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-en
   ],
   imports: [
     BrowserModule,
+    // Aula 57: eu teria que ter importado esse cara aqui nessa aula
+    // se o método antigo mostrado pela Loiane ainda fosse possível
+    // de ser utilizado.
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
