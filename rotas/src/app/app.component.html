@@ -25,12 +25,12 @@ https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-w
                     <span *ngIf="!isCollapsed">Cursos</span>
                 </span>
             </a>
-            <a [routerLink]="['curso', idCurso]" routerLinkActive="active" mat-list-item>
+            <!-- <a [routerLink]="['curso', idCurso]" routerLinkActive="active" mat-list-item>
                 <span class="entry">
                     <mat-icon>book</mat-icon>
                     <span *ngIf="!isCollapsed">Curso com Id</span>
                 </span>
-            </a>
+            </a> -->
             <a routerLink="/alunos" routerLinkActive="active" mat-list-item>
                 <span class="entry">
                     <mat-icon>school</mat-icon>
@@ -41,8 +41,8 @@ https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-w
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="container">
-            <p>Entre com o id do curso</p>
-            <input type="number" [(ngModel)]="idCurso">
+            <!-- <p>Entre com o id do curso</p>
+            <input type="number" [(ngModel)]="idCurso"> -->
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
