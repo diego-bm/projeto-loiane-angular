@@ -1,1 +1,19 @@
-<p>aluno-form works!</p>
+<mat-form-field>
+    <mat-label>#</mat-label>
+    <input matInput disabled [(ngModel)]="aluno.id" id="disabled">
+</mat-form-field>
+
+<!-- Desmotivado demais, vai no br mesmo. -->
+<br/>
+
+<mat-form-field>
+    <mat-label>Nome do Aluno</mat-label>
+    <input matInput [(ngModel)]="aluno.nome">
+</mat-form-field>
+
+<br/>
+
+<mat-form-field>
+    <mat-label>E-mail</mat-label>
+    <input matInput placeholder="aluno@example.com" [(ngModel)]="aluno.email">
+</mat-form-field>

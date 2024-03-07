@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlunosService } from '../alunos.service';
 
@@ -14,6 +14,7 @@ export class AlunoDetalheComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private alunosService: AlunosService
   ) {}
 
@@ -29,5 +30,9 @@ export class AlunoDetalheComponent {
 
   ngOnDestroy() {
     this.inscricao.unsubscribe();
+  }
+
+  editarContato() {
+    this.router.navigate(['/alunos', this.aluno.id, 'editar'])
   }
 }
