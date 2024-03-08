@@ -8,7 +8,7 @@ import { AlunoFormComponent } from "./aluno-form/aluno-form.component";
 const alunosRoutes = [
     // Rotas são avaliadas na ordem em que são declaradas, ou seja,
     // a primeira que bater, vai
-    { path: 'alunos', component: AlunosComponent, children: [
+    { path: '', component: AlunosComponent, children: [
         // Rotas hard-coded (chumbadas) vêm antes de rotas parametrizadas.
         { path: 'novo', component: AlunoFormComponent },
         { path: ':id', component: AlunoDetalheComponent },

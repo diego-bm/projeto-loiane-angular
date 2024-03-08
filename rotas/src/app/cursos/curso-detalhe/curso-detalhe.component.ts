@@ -33,7 +33,7 @@ export class CursoDetalheComponent {
           // Podemos, ainda, passar o id como parâmetro junto do caminho
           // da rota alí dentro do navigate, que pode ser útil dependendo
           // da aplicação.
-          this.router.navigate(['/naoEncontrado'])
+          this.router.navigate(['/cursos/naoEncontrado'])
         }
       }
     )
