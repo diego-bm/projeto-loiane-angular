@@ -43,9 +43,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { CursosComponent } from './cursos/cursos.component';
-import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
-import { CursoNaoEncontradoComponent } from './cursos/curso-nao-encontrado/curso-nao-encontrado.component';
 
 // A nomenclatura de constantes no JS (no qual o Typescript parece seguir)
 // deixa constantes em camelcase.
@@ -56,9 +53,10 @@ const appRoutes: Routes = [
     path: 'alunos',
     loadChildren: () => import('./alunos/alunos.module').then(x => x.AlunosModule)
   },
-  { path: 'cursos', component: CursosComponent },
-  { path: 'cursos/naoEncontrado', component: CursoNaoEncontradoComponent },
-  { path: 'cursos/:id', component: CursoDetalheComponent },
+  {
+    path: 'cursos',
+    loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule)
+  },
   { path: 'login', component: LoginComponent },
   { path: '', component: HomeComponent }
 ];
