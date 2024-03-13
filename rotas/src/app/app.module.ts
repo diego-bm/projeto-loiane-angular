@@ -14,11 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 // import { CursosComponent } from './cursos/cursos.component';
 // import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
 // import { CursosService } from './cursos/cursos.service';
@@ -55,6 +56,6 @@ import { AuthService } from './login/auth.service';
   ],
   // providers: [CursosService],
   bootstrap: [AppComponent],
-  providers: [AuthService]
+  providers: [AuthService, AuthGuard]
 })
 export class AppModule { }

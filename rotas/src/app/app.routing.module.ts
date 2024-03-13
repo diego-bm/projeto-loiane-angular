@@ -43,6 +43,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 // A nomenclatura de constantes no JS (no qual o Typescript parece seguir)
 // deixa constantes em camelcase.
@@ -51,14 +52,23 @@ const appRoutes: Routes = [
   // mudou e já não é da forma que a Loiane apresentou.
   {
     path: 'alunos',
-    loadChildren: () => import('./alunos/alunos.module').then(x => x.AlunosModule)
+    loadChildren: () => import('./alunos/alunos.module').then(x => x.AlunosModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'cursos',
-    loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule)
+    loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule),
+    canActivate: [AuthGuard]
   },
-  { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent }
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
