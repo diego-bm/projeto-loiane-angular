@@ -10,6 +10,7 @@ import { MatIconModule  } from '@angular/material/icon';
 import { MatSidenavModule  } from '@angular/material/sidenav';
 import { MatToolbarModule  } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list'
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './login/auth.service';
 // import { CursosComponent } from './cursos/cursos.component';
 // import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
 // import { CursosService } from './cursos/cursos.service';
@@ -45,12 +47,14 @@ import { LoginComponent } from './login/login.component';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatInputModule,
     FormsModule,
     // A Loiane gosta de deixar o AppRouting por último, vou seguir
     // o exemplo dela.
     AppRoutingModule
   ],
   // providers: [CursosService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [AuthService]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 <!-- Agradecimentos vão a esse tutorial:
 https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-with-material-angular-o5l#:~:text=How%20to%20create%20a%20responsive%20sidebar%20and%20mini,...%207%20Step%207%3A%20Collapsing%20the%20navigation%20 -->
 
-<mat-toolbar color="primary">
+<mat-toolbar *ngIf="mostrarMenu" color="primary">
     <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
     </button>
@@ -9,7 +9,7 @@ https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-w
 </mat-toolbar>
 
 <mat-sidenav-container autosize>
-    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [opened]="isMobile ? 'false' : 'true'" [mode]="isMobile ? 'over' : 'side'">
+    <mat-sidenav *ngIf="mostrarMenu" [ngClass]="!isCollapsed ? 'expanded' : ''" [opened]="isMobile ? 'false' : 'true'" [mode]="isMobile ? 'over' : 'side'">
         <!-- Tive que importar o mat-nav-list separadamente.
         Tudo nesse maldito framework tem que ser desnecessariamente complicado. -->
         <mat-nav-list>

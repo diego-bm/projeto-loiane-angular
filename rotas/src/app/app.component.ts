@@ -5,6 +5,8 @@ import {
 import { BreakpointObserver } from '@angular/cdk/layout'
 import { MatSidenav } from '@angular/material/sidenav';
 
+import { AuthService } from './login/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,10 +23,18 @@ export class AppComponent {
   isMobile: boolean = true;
   isCollapsed: boolean = true;
   idCurso: number = 0;
+  mostrarMenu: boolean = false;
 
-  constructor(private observer: BreakpointObserver) {}
+  constructor(
+    private observer: BreakpointObserver,
+    private authService: AuthService
+    ) {}
 
   ngOnInit() {
+    this.authService.mostrarMenuEmitter.subscribe(
+      (mostrar: boolean) => this.mostrarMenu = mostrar
+    );
+
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if(screenSize.matches) {
         this.isMobile = true;
