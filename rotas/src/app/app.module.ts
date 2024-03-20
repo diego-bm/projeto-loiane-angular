@@ -22,6 +22,7 @@ import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { CursosGuard } from './guards/cursos.guard';
 import { AlunosGuard } from './guards/alunos.guard';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 // import { CursosComponent } from './cursos/cursos.component';
 // import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
 // import { CursosService } from './cursos/cursos.service';
@@ -31,10 +32,11 @@ import { AlunosGuard } from './guards/alunos.guard';
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent/*,
-    CursosComponent,
+    LoginComponent,
+    /*CursosComponent,
     CursoDetalheComponent,
-    CursoNaoEncontradoComponent*/
+    CursoNaoEncontradoComponent,*/
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     // O BrowserModule só pode ser utilizado no app.module,

@@ -19,6 +19,12 @@ https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-w
                     <span *ngIf="!isCollapsed">Login</span>
                 </span>
             </a>
+            <a routerLink="" routerLinkActive="active" class="sidenav-item" mat-list-item>
+                <span class="entry">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span *ngIf="!isCollapsed">Home</span>
+                </span>
+            </a>
             <a routerLink="/cursos" [queryParams]="{pagina:1}" routerLinkActive="active" mat-list-item>
                 <span class="entry">
                     <mat-icon>library_books</mat-icon>

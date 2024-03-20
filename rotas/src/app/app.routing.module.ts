@@ -46,6 +46,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CursosGuard } from './guards/cursos.guard';
 import { AlunosGuard } from './guards/alunos.guard';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 // A nomenclatura de constantes no JS (no qual o Typescript parece seguir)
 // deixa constantes em camelcase.
@@ -71,9 +72,22 @@ const appRoutes: Routes = [
     component: LoginComponent
   },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  // Sempre deixar esse caminho por último, pois na hora de selecionar
+  // que rota levar o usuário, o Angular itera cada um dos itens desse
+  // array de rotas do módulo de roteamento, sequencialmente. O
+  // primeiro que encaixar, ele vai mandar.
+  {
+    path: '**',
+    component: PaginaNaoEncontradaComponent //Também podemos redirecionar para a página de login se o usuário não estiver logado.
   }
 ];
 
