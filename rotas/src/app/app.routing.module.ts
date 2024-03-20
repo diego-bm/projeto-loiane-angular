@@ -94,7 +94,7 @@ const appRoutes: Routes = [
 @NgModule({
   // Em vez de colocar a constante aqui, eu também posso colocar todas
   // as rotas que serão declaradas, vai de gosto.
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
