@@ -1,0 +1,68 @@
+h1 {
+    padding: 0 1rem;
+}
+
+h2 {
+    padding: 1rem;
+}
+
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+mat-sidenav-container {
+    height: 100%;
+}
+
+// Do tutorial:
+// Mova o conteúdo para baixo para que não fique escondido pela toolbar
+mat-sidenav {
+    padding-top: 3.5rem;
+    // Esse "@media screen" vai checar coisas baseadas na tela do usuário.
+    // Nesse caso, se a tela for no minimo 600px, o padding-top será 4rem.
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+
+    .entry {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem;
+    }
+}
+
+// Do tutorial:
+// Mova o conteúdo para baixo para que não fique escondido pela toolbar
+mat-sidenav-content {
+    padding-top: 3.5rem;
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+}
+
+.expanded {
+    width: 250px;
+}
+
+.container {
+    padding: 10px;
+}
+
+// Eu não sei se isso daqui é uma solução boa ou permanente para remover a
+// notação de hyperlink do anchor do HTML, mas funcionou por enquanto.
+// Vale a pena revisar depois.
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.active {
+    background: lightgray;
+}
+
+.sidenav-item {
+    animation: none;
+}

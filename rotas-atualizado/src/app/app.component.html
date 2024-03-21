@@ -1,0 +1,56 @@
+<!-- Agradecimentos vão a esse tutorial:
+https://dev.to/davidihl/how-to-create-a-responsive-sidebar-and-mini-navigation-with-material-angular-o5l#:~:text=How%20to%20create%20a%20responsive%20sidebar%20and%20mini,...%207%20Step%207%3A%20Collapsing%20the%20navigation%20 -->
+
+<mat-toolbar *ngIf="mostrarMenu" color="primary">
+    <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink=""><h1>Rotas Ng2</h1></a>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+    <mat-sidenav *ngIf="mostrarMenu" [ngClass]="!isCollapsed ? 'expanded' : ''" [opened]="isMobile ? 'false' : 'true'" [mode]="isMobile ? 'over' : 'side'">
+        <!-- Tive que importar o mat-nav-list separadamente.
+        Tudo nesse maldito framework tem que ser desnecessariamente complicado. -->
+        <mat-nav-list>
+            <a routerLink="/login" routerLinkActive="active" class="sidenav-item" mat-list-item>
+                <span class="entry">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span *ngIf="!isCollapsed">Login</span>
+                </span>
+            </a>
+            <a routerLink="" routerLinkActive="active" class="sidenav-item" mat-list-item>
+                <span class="entry">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span *ngIf="!isCollapsed">Home</span>
+                </span>
+            </a>
+            <a routerLink="/cursos" [queryParams]="{pagina:1}" routerLinkActive="active" mat-list-item>
+                <span class="entry">
+                    <mat-icon>library_books</mat-icon>
+                    <span *ngIf="!isCollapsed">Cursos</span>
+                </span>
+            </a>
+            <!-- <a [routerLink]="['curso', idCurso]" routerLinkActive="active" mat-list-item>
+                <span class="entry">
+                    <mat-icon>book</mat-icon>
+                    <span *ngIf="!isCollapsed">Curso com Id</span>
+                </span>
+            </a> -->
+            <a routerLink="/alunos" routerLinkActive="active" mat-list-item>
+                <span class="entry">
+                    <mat-icon>school</mat-icon>
+                    <span *ngIf="!isCollapsed">Alunos</span>
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container">
+            <!-- <p>Entre com o id do curso</p>
+            <input type="number" [(ngModel)]="idCurso"> -->
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
