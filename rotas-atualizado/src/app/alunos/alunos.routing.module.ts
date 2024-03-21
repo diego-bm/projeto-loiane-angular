@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 import { AlunosComponent } from "./alunos.component";
@@ -13,7 +13,7 @@ const alunosRoutes = [
     // a primeira que bater, vai
     {
         path: '', component: AlunosComponent, 
-        canActivateChild: [AlunosGuard],
+        canActivateChild: [() => inject(AlunosGuard).canActivateChild()],
         children: [
         // Rotas hard-coded (chumbadas) vêm antes de rotas parametrizadas.
         { path: 'novo', component: AlunoFormComponent },
