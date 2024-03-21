@@ -57,14 +57,14 @@ const appRoutes: Routes = [
     loadChildren: () => import('./alunos/alunos.module').then(x => x.AlunosModule),
     canActivate: [() => inject(AuthGuard).canActivate()],
     //canActivateChild: [AlunosGuard],
-    canLoad: [AuthGuard]
+    canMatch: [() => inject(AuthGuard).canMatch()]
   },
   {
     path: 'cursos',
     loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule),
     canActivate: [() => inject(AuthGuard).canActivate()],
     canActivateChild: [() => inject(CursosGuard).canActivateChild()],
-    canLoad: [AuthGuard]
+    canMatch: [() => inject(AuthGuard).canMatch()]
   },
   {
     path: 'login',
