@@ -7,7 +7,7 @@ import { AuthService } from '../login/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AuthGuard implements CanLoad {
 
   constructor(
     private authService: AuthService,
@@ -20,10 +20,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.verificarAcesso();
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) : Observable<boolean> | boolean {
+  canActivate() : Observable<boolean> | boolean {
     return this.verificarAcesso();
   }
 

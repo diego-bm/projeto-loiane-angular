@@ -38,7 +38,7 @@
 // })
 // export class AppRoutingModule { }
 
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -56,14 +56,14 @@ const appRoutes: Routes = [
   {
     path: 'alunos',
     loadChildren: () => import('./alunos/alunos.module').then(x => x.AlunosModule),
-    canActivate: [AuthGuard],
+    canActivate: [() => inject(AuthGuard).canActivate()],
     //canActivateChild: [AlunosGuard],
     canLoad: [AuthGuard]
   },
   {
     path: 'cursos',
     loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule),
-    canActivate: [AuthGuard],
+    canActivate: [() => inject(AuthGuard).canActivate()],
     canActivateChild: [CursosGuard],
     canLoad: [AuthGuard]
   },
@@ -74,7 +74,7 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [() => inject(AuthGuard).canActivate()]
   },
   {
     path: '',
