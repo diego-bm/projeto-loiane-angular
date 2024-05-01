@@ -1,14 +1,15 @@
-<form>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" name="form">
     <div class="form-group">
-        <label for="nome" class="form-label">Nome</label>
+        <!-- Não entendi por que precisa do ngDefaultControl para não dar erro, mas resolveu e é isso que importa. -->
+        <label for="nome" class="form-label" name="nome" ngDefaultControl ngModel>Nome</label>
         <input type="text" class="form-control" id="nome" placeholder="Nome">
     </div>
 
     <div class="form-group">
-        <label for="email" class="form-label">E-mail</label>
+        <label for="email" class="form-label" name="email" ngDefaultControl ngModel>E-mail</label>
         <input type="email" class="form-control" id="email" placeholder="nome@email.com">
     </div>
 
     
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" name="submit">Submit</button>
 </form>

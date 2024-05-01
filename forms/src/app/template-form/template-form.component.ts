@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./template-form.component.css']
 })
 export class TemplateFormComponent {
-
+  onSubmit(form: any){
+    console.log(form);
+  }
 }
