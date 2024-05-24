@@ -8,13 +8,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
+import { TemplateFormModule } from './template-form/template-form.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TemplateFormComponent,
     DataFormComponent
   ],
   imports: [
@@ -23,7 +22,8 @@ import { DataFormComponent } from './data-form/data-form.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TemplateFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]

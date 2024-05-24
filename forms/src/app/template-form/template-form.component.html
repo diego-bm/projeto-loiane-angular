@@ -1,6 +1,5 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" name="form">
     <div class="form-group">
-        <!-- Não entendi por que precisa do ngDefaultControl para não dar erro, mas resolveu e é isso que importa. -->
         <label for="nome" class="form-label">Nome</label>
         <input type="text" class="form-control" id="nome" placeholder="Nome" [ngModel]="usuario.nome" name="nome">
     </div>
