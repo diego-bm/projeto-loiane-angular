@@ -1,8 +1,8 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" name="form" class="form-horizontal">
-    <div class="form-group" [class.has-error]="!nome.valid && nome.touched"
+    <div class="form-group" [class.is-invalid]="!nome.valid && nome.touched"
     [class.has-feedback]="!nome.valid && nome.touched">
         <div class="col-sm-12">
-            <label for="nome" class="control-label">Nome</label>
+            <label for="nome" class="control-label" [class.label-input-invalid]="!nome.valid && nome.touched">Nome</label>
         </div>
         <div class="col-sm-12">
             <input type="text" class="form-control" id="nome" placeholder="Nome" [ngModel]="usuario.nome" 
@@ -16,13 +16,13 @@
         </div>
     </div>
 
-    <div class="form-group" [class.has-error]="!email.valid && email.touched"
+    <div class="form-group" [class.is-invalid]="!email.valid && email.touched"
     [class.has-feedback]="!email.valid && email.touched">
-        <div class="com-sm-12">
-            <label for="email" class="control-label">E-mail</label>
+        <div class="col-sm-12">
+            <label for="email" class="control-label" [class.label-input-invalid]="!email.valid && email.touched">E-mail</label>
         </div>
 
-        <div class="com-sm-12">
+        <div class="col-sm-12">
             <input type="email" class="form-control" id="email" placeholder="nome@email.com"  name="email"
             [ngModel]="usuario.email" required email #email="ngModel">
             <!-- Em versões mais antigas do Angular (antes da 4), tinha que utilizar um pattern específico para
@@ -37,10 +37,10 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="com-md-3" [class.has-error]="!cep.valid && cep.touched"
+    <div class="form-group row">
+        <div class="col-md-3" [class.is-invalid]="!cep.valid && cep.touched"
         [class.has-feedback]="!cep.valid && cep.touched">
-            <label for="cep" class="control-label">CEP</label>
+            <label for="cep" class="control-label" [class.label-input-invalid]="!cep.valid && cep.touched">CEP</label>
             <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
             <span class="glyphicon glyphicon-remove form-control-feedback"
             aria-hidden="true" *ngIf="!cep.valid && cep.touched"></span>
@@ -50,22 +50,29 @@
             </div>
         </div>
 
-        <div class="com-md-3" >
-            
+        <div class="col-md-3" >
+            <label for="numero" class="control-label" [class.label-input-invalid]="!numero.valid && numero.touched">Número</label>
+            <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel">
+            <span class="glyphicon glyphicon-remove form-control-feedback"
+            aria-hidden="true" *ngIf="!numero.valid && numero.touched"></span>
+            <span class="sr-only" *ngIf="!numero.valid && numero.touched"></span>
+            <div *ngIf="!numero.valid && numero.touched" class="alert alert-danger" role="alert">
+                Número é obrigatório.
+            </div>
         </div>
 
-        <div class="com-md-6" [class.has-error]="!complemento.valid && complemento.touched"
+        <div class="col-md-6" [class.is-invalid]="!complemento.valid && complemento.touched"
         [class.has-feedback]="!complemento.valid && complemento.touched">
             <label for="complemento" class="control-label">Complemento</label>
             <input type="text" class="form-control" id="complemento" name="complemento" ngModel #complemento="ngModel">
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="form-group" [class.has-error]="!rua.valid && rua.touched"
+    <div class="form-group row">
+        <div class="form-group" [class.is-invalid]="!rua.valid && rua.touched"
         [class.has-feedback]="!rua.valid && rua.touched">
             <div class="col-sm-12">
-                <label for="rua" class="control-label">Rua</label>
+                <label for="rua" class="control-label" [class.label-input-invalid]="!rua.valid && rua.touched">Rua</label>
             </div>
             <div class="col-sm-12">
                 <input type="text" class="form-control" id="rua" [ngModel]="usuario.rua" 
@@ -80,10 +87,10 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="com-md-5" [class.has-error]="!bairro.valid && bairro.touched"
+    <div class="form-group row">
+        <div class="col-md-5" [class.is-invalid]="!bairro.valid && bairro.touched"
         [class.has-feedback]="!bairro.valid && bairro.touched">
-            <label for="bairro" class="control-label">Bairro</label>
+            <label for="bairro" class="control-label" [class.label-input-invalid]="!bairro.valid && bairro.touched">Bairro</label>
             <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel">
             <span class="glyphicon glyphicon-remove form-control-feedback"
             aria-hidden="true" *ngIf="!bairro.valid && bairro.touched"></span>
@@ -93,9 +100,9 @@
             </div>
         </div>
 
-        <div class="com-md-4" [class.has-error]="!cidade.valid && cidade.touched"
+        <div class="col-md-4" [class.is-invalid]="!cidade.valid && cidade.touched"
         [class.has-feedback]="!cidade.valid && cidade.touched">
-            <label for="cidade" class="control-label">Cidade</label>
+            <label for="cidade" class="control-label" [class.label-input-invalid]="!cidade.valid && cidade.touched">Cidade</label>
             <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel">
             <span class="glyphicon glyphicon-remove form-control-feedback"
             aria-hidden="true" *ngIf="!cidade.valid && cidade.touched"></span>
@@ -105,9 +112,9 @@
             </div>
         </div>
 
-        <div class="com-md-3" [class.has-error]="!estado.valid && estado.touched"
+        <div class="col-md-3" [class.is-invalid]="!estado.valid && estado.touched"
         [class.has-feedback]="!estado.valid && estado.touched">
-            <label for="estado" class="control-label">Estado</label>
+            <label for="estado" class="control-label" [class.label-input-invalid]="!estado.valid && estado.touched">Estado</label>
             <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel">
             <span class="glyphicon glyphicon-remove form-control-feedback"
             aria-hidden="true" *ngIf="!estado.valid && estado.touched"></span>
@@ -121,4 +128,5 @@
   <button type="submit" class="btn btn-primary" name="submit" [disabled]="!f.valid">Submit</button>
 
   <app-form-debug [form]="f"></app-form-debug>
+  <span class="glyphicon glyphicon-remove"></span>
 </form>

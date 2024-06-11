@@ -1,3 +1,13 @@
 .ng-invalid.ng-touched:not(form) {
     border: 1px solid red;
 }
+
+label {
+    font-weight: bold;
+}
+
+label.control-label.label-input-invalid {
+    color: darkred;
+    font-weight: bold;
+}
+
