@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
 .ng-invalid.ng-touched:not(form) {
     border: 1px solid red;
 }
@@ -11,3 +13,19 @@ label.control-label.label-input-invalid {
     font-weight: bold;
 }
 
+.form-group .form-control-icon {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 99%;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: end;
+    pointer-events: none;
+    color: red;
+    padding-right: 5px;
+}
+
+button {
+    margin-top: 20px;
+}
