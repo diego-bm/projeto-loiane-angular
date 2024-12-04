@@ -1,7 +1,7 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" name="form" class="form-horizontal">
     <div class="form-group">
         <div class="col-sm-12">
-            <label for="nome" class="control-label" [class.label-input-invalid]="!nome.valid && nome.touched">Nome</label>
+            <label for="nome" class="control-label" [ngClass]="aplicaCssErro(nome)">Nome</label>
         </div>
         <div class="col-sm-12 input-group">
             <span>
@@ -10,14 +10,13 @@
             <input type="text" class="form-control" id="nome" placeholder="Nome" [ngModel]="usuario.nome" 
             name="nome" required #nome="ngModel">
         </div>
-        <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger" role="alert">
-            Nome é obrigatório.
-        </div>
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(nome)" msgErro="Nome é obrigatório.">
+        </app-campo-control-erro>
     </div>
 
     <div class="form-group">
         <div class="col-sm-12">
-            <label for="email" class="control-label" [class.label-input-invalid]="!email.valid && email.touched">E-mail</label>
+            <label for="email" class="control-label" [ngClass]="aplicaCssErro(email)">E-mail</label>
         </div>
 
         <div class="col-sm-12">
@@ -31,15 +30,13 @@
             <!-- Em versões mais antigas do Angular (antes da 4), tinha que utilizar um pattern específico para
             e-mails. Hoje já temos uma diretiva do Angular só para isso. A pattern era:
             pattern='(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)' -->
-            <div *ngIf="!email.valid && email.touched" class="alert alert-danger" role="alert">
-                E-mail inválido.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(email)" msgErro="E-mail inválido.">
+            </app-campo-control-erro>
         </div>
     </div>
 
     <div class="form-group row">
-        <div class="col-md-3" [class.is-invalid]="!cep.valid && cep.touched"
-        [class.has-feedback]="!cep.valid && cep.touched">
+        <div class="col-md-3" [ngClass]="aplicaCssErro(cep)">
             <label for="cep" class="control-label" [class.label-input-invalid]="!cep.valid && cep.touched">CEP</label>
             <div class="input-group">
                 <span>
@@ -47,22 +44,20 @@
                 </span>
                 <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
             </div>
-            <div *ngIf="!cep.valid && cep.touched" class="alert alert-danger" role="alert">
-                CEP é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(cep)" msgErro="CEP é obrigatório.">
+            </app-campo-control-erro>
         </div>
 
         <div class="col-md-3" >
-            <label for="numero" class="control-label" [class.label-input-invalid]="!numero.valid && numero.touched">Número</label>
+            <label for="numero" class="control-label" [ngClass]="aplicaCssErro(numero)">Número</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="!numero.valid && numero.touched"></i>
                 </span>
                 <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel">
             </div>
-            <div *ngIf="!numero.valid && numero.touched" class="alert alert-danger" role="alert">
-                Número é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(numero)" msgErro="Número é obrigatório.">
+            </app-campo-control-erro>
         </div>
 
         <div class="col-md-6">
@@ -73,7 +68,7 @@
 
     <div class="form-group row">
         <div class="col-sm-12">
-            <label for="rua" class="control-label" [class.label-input-invalid]="!rua.valid && rua.touched">Rua</label>
+            <label for="rua" class="control-label" [ngClass]="aplicaCssErro(rua)">Rua</label>
             <div class="col-sm-12 input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="!rua.valid && rua.touched"></i>
@@ -81,50 +76,46 @@
                 <input type="text" class="form-control" id="rua" [ngModel]="usuario.rua" 
                 name="rua" required #rua="ngModel" readonly>
             </div>
-            <div *ngIf="!rua.valid && rua.touched" class="alert alert-danger" role="alert">
-                Rua é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(rua)" msgErro="Rua é obrigatório.">
+            </app-campo-control-erro>
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-5">
-            <label for="bairro" class="control-label" [class.label-input-invalid]="!bairro.valid && bairro.touched">Bairro</label>
+            <label for="bairro" class="control-label" [ngClass]="aplicaCssErro(bairro)">Bairro</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="!bairro.valid && bairro.touched"></i>
                 </span>
                 <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel">
             </div>
-            <div *ngIf="!bairro.valid && bairro.touched" class="alert alert-danger" role="alert">
-                Bairro é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(bairro)" msgErro="Bairro é obrigatório.">
+            </app-campo-control-erro>
         </div>
 
         <div class="col-md-4">
-            <label for="cidade" class="control-label" [class.label-input-invalid]="!cidade.valid && cidade.touched">Cidade</label>
+            <label for="cidade" class="control-label" [ngClass]="aplicaCssErro(cidade)">Cidade</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="!cidade.valid && cidade.touched"></i>
                 </span>
                 <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel">
             </div>
-            <div *ngIf="!cidade.valid && cidade.touched" class="alert alert-danger" role="alert">
-                Cidade é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(cidade)" msgErro="Cidade é obrigatório.">
+            </app-campo-control-erro>
         </div>
 
         <div class="col-md-3">
-            <label for="estado" class="control-label" [class.label-input-invalid]="!estado.valid && estado.touched">Estado</label>
+            <label for="estado" class="control-label" [ngClass]="aplicaCssErro(estado)">Estado</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="!estado.valid && estado.touched"></i>
                 </span>
                 <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel">
             </div>
-            <div *ngIf="!estado.valid && estado.touched" class="alert alert-danger" role="alert">
-                Estado é obrigatório.
-            </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched(estado)" msgErro="Estado é obrigatório.">
+            </app-campo-control-erro>
         </div>
     </div>
     
