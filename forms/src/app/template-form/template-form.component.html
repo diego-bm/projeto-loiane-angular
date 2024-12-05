@@ -37,85 +37,86 @@
 
     <div ngModelGroup="endereco">
         <div class="form-group row">
-            <div class="col-md-3" [ngClass]="aplicaCssErro(cep)">
-                <label for="cep" class="control-label" [class.label-input-invalid]="!cep.valid && cep.touched">CEP</label>
+            <div class="col-md-3" [ngClass]="aplicaCssErro(usuario.endereco.cep)">
+                <label for="cep" class="control-label" [class.label-input-invalid]="!usuario.endereco.cep.valid && usuario.endereco.cep.touched">CEP</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!cep.valid && cep.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.cep.valid && usuario.endereco.cep.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
+                    <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="usuario.endereco.cep" required
+                    (blur)="consultaCEP(usuario.endereco.cep)">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(cep)" msgErro="CEP é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.cep)" msgErro="CEP é obrigatório.">
                 </app-campo-control-erro>
             </div>
 
             <div class="col-md-3" >
-                <label for="numero" class="control-label" [ngClass]="aplicaCssErro(numero)">Número</label>
+                <label for="numero" class="control-label" [ngClass]="aplicaCssErro(usuario.endereco.numero)">Número</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!numero.valid && numero.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.numero.valid && usuario.endereco.numero.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel">
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="usuario.endereco.numero" required>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(numero)" msgErro="Número é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.numero)" msgErro="Número é obrigatório.">
                 </app-campo-control-erro>
             </div>
 
             <div class="col-md-6">
                 <label for="complemento" class="control-label">Complemento</label>
-                <input type="text" class="form-control" id="complemento" name="complemento" ngModel #complemento="ngModel">
+                <input type="text" class="form-control" id="complemento" name="complemento" [(ngModel)]="usuario.endereco.complemento">
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-sm-12">
-                <label for="rua" class="control-label" [ngClass]="aplicaCssErro(rua)">Rua</label>
+                <label for="rua" class="control-label" [ngClass]="aplicaCssErro(usuario.endereco.rua)">Rua</label>
                 <div class="col-sm-12 input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!rua.valid && rua.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.rua.valid && usuario.endereco.rua.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="rua" [ngModel]="usuario.rua" 
-                    name="rua" required #rua="ngModel" readonly>
+                    <input type="text" class="form-control" id="rua" [(ngModel)]="usuario.endereco.rua" 
+                    name="rua" required readonly>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(rua)" msgErro="Rua é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.rua)" msgErro="Rua é obrigatório.">
                 </app-campo-control-erro>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-5">
-                <label for="bairro" class="control-label" [ngClass]="aplicaCssErro(bairro)">Bairro</label>
+                <label for="bairro" class="control-label" [ngClass]="aplicaCssErro(usuario.endereco.bairro)">Bairro</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!bairro.valid && bairro.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.bairro.valid && usuario.endereco.bairro.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel">
+                    <input type="text" class="form-control" id="bairro" name="bairro" [(ngModel)]="usuario.endereco.bairro" required>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(bairro)" msgErro="Bairro é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.bairro)" msgErro="Bairro é obrigatório.">
                 </app-campo-control-erro>
             </div>
 
             <div class="col-md-4">
-                <label for="cidade" class="control-label" [ngClass]="aplicaCssErro(cidade)">Cidade</label>
+                <label for="cidade" class="control-label" [ngClass]="aplicaCssErro(usuario.endereco.cidade)">Cidade</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!cidade.valid && cidade.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.cidade.valid && usuario.endereco.cidade.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel">
+                    <input type="text" class="form-control" id="cidade" name="cidade" [(ngModel)]="usuario.endereco.cidade" required>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(cidade)" msgErro="Cidade é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.cidade)" msgErro="Cidade é obrigatório.">
                 </app-campo-control-erro>
             </div>
 
             <div class="col-md-3">
-                <label for="estado" class="control-label" [ngClass]="aplicaCssErro(estado)">Estado</label>
+                <label for="estado" class="control-label" [ngClass]="aplicaCssErro(usuario.endereco.estado)">Estado</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!estado.valid && estado.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.estado.valid && usuario.endereco.estado.touched"></i>
                     </span>
-                    <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel">
+                    <input type="text" class="form-control" id="estado" name="estado" [(ngModel)]="usuario.endereco.estado" required>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(estado)" msgErro="Estado é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.estado)" msgErro="Estado é obrigatório.">
                 </app-campo-control-erro>
             </div>
         </div>

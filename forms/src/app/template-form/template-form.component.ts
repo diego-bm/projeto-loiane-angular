@@ -7,8 +7,16 @@ import { Component } from '@angular/core';
 })
 export class TemplateFormComponent {
   usuario: any = {
-    nome: null,
-    email: null
+    nome: '',
+    email: '',
+    endereco: {
+      cep: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      estado: ''
+    }
   }
 
   onSubmit(form: any){
@@ -23,5 +31,9 @@ export class TemplateFormComponent {
     return {
       'label-input-invalid': this.verificaValidTouched(campo)
     }
+  }
+
+  consultaCEP(cep: any){
+    console.log(cep);
   }
 }
