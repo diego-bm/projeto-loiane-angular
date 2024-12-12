@@ -37,16 +37,16 @@
 
     <div ngModelGroup="endereco">
         <div class="form-group row">
-            <div class="col-md-3" [ngClass]="aplicaCssErro(usuario.endereco.cep)">
-                <label for="cep" class="control-label" [class.label-input-invalid]="!usuario.endereco.cep.valid && usuario.endereco.cep.touched">CEP</label>
+            <div class="col-md-3" [ngClass]="aplicaCssErro(cep)">
+                <label for="cep" class="control-label" [class.label-input-invalid]="!cep.valid && cep.touched">CEP</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="!usuario.endereco.cep.valid && usuario.endereco.cep.touched"></i>
+                        <i class="bi bi-x-lg form-control-icon" *ngIf="!cep.valid && cep.touched"></i>
                     </span>
                     <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="usuario.endereco.cep" required
-                    (blur)="consultaCEP(usuario.endereco.cep)">
+                    (blur)="consultaCEP(usuario.endereco.cep)" #cep="ngModel">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched(usuario.endereco.cep)" msgErro="CEP é obrigatório.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched(cep)" msgErro="CEP é obrigatório.">
                 </app-campo-control-erro>
             </div>
 

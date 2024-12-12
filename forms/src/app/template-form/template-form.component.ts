@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -13,17 +14,24 @@ export class TemplateFormComponent {
       cep: '',
       numero: '',
       complemento: '',
+      rua: '',
       bairro: '',
       cidade: '',
       estado: ''
     }
   }
 
+  constructor(private http: HttpClient) {}
+
   onSubmit(form: any){
     console.log(form);
   }
 
   verificaValidTouched(campo: any){
+    if(!campo){
+      return false;
+    }
+    
     return !campo.valid && campo.touched;
   }
 
@@ -34,6 +42,15 @@ export class TemplateFormComponent {
   }
 
   consultaCEP(cep: any){
-    console.log(cep);
+    cep = cep.replace(/\D/g, '');
+
+    if (cep != '') {
+      var validacep = /^[0-9]{8}$/;
+
+      if(validacep.test(cep)) {
+        this.http.get(`//viacep.com.br/ws/${cep}/json/`)
+          .subscribe(dados => console.log(dados));
+      }
+    }
   }
 }
