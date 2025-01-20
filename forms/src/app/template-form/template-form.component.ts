@@ -25,6 +25,9 @@ export class TemplateFormComponent {
 
   onSubmit(form: any){
     console.log(form);
+
+    this.http.post('https://httpbin.org/post', JSON.stringify(form.value))
+    .subscribe();
   }
 
   verificaValidTouched(campo: any){
