@@ -27,7 +27,11 @@ export class TemplateFormComponent {
     console.log(form);
 
     this.http.post('https://httpbin.org/post', JSON.stringify(form.value))
-    .subscribe();
+    .subscribe(dados => {
+      console.log(dados);
+      // form reset
+      form.form.reset();
+    });
   }
 
   verificaValidTouched(campo: any){

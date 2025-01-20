@@ -36,15 +36,27 @@ export class DataFormComponent {
     })
   }
 
-  ngOnInit() {
+  ngOnInit(){
     
   }
 
-  onSubmit() {
+  onSubmit(){
     console.log(this.formulario.value);
 
+    // Usar o "error" ali depois do subscribe parece estar descontinuado.
+    // Pelo que eu entendi, devemos tratar esse erro no próprio corpo do
+    // subscribe, tratando a resposta que obtivermos.
     this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-    .subscribe();
+    .subscribe(dados => {
+      console.log(dados);
+      // reseta o form;
+      this.resetar();
+    },
+  (error: any) => alert('erro'));
+  }
+
+  resetar(){
+    this.formulario.reset();
   }
 
 }
