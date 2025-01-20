@@ -1,3 +1,7 @@
+// Na aula, a Loiane apenas importa o Http no módulo e ele funciona. Aqui,
+// eu fui forçado a manter o import no componente. Manterei assim.
+// Provavelmente é uma mudança nos Angulars mais recentes.
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -10,7 +14,10 @@ export class DataFormComponent {
 
   formulario: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+  ) {
     // Passando o conteúdo abaixo para o construtor para corrigir o erro da 
     // aula 89 - 90
 
@@ -31,6 +38,13 @@ export class DataFormComponent {
 
   ngOnInit() {
     
+  }
+
+  onSubmit() {
+    console.log(this.formulario.value);
+
+    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+    .subscribe();
   }
 
 }
