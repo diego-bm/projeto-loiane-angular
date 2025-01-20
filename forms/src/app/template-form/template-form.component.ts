@@ -47,18 +47,26 @@ export class TemplateFormComponent {
     if (cep != '') {
       var validacep = /^[0-9]{8}$/;
 
-      if(validacep.test(cep)) {
+      if(validacep.test(cep)){
         this.http.get(`//viacep.com.br/ws/${cep}/json/`)
           .subscribe((dados: any) => {
-            this.usuario.endereco.complemento = dados.complemento;
-            this.usuario.endereco.rua = dados.logradouro;
-            this.usuario.endereco.bairro = dados.bairro;
-            this.usuario.endereco.cidade = dados.localidade;
-            this.usuario.endereco.estado = dados.estado;
+            if(dados.erro == 'true'){
+              alert('O CEP inserido é inválido ou não foi encontrado.')
+              return;
+            } else {
+              this.usuario.endereco.complemento = dados.complemento;
+              this.usuario.endereco.rua = dados.logradouro;
+              this.usuario.endereco.bairro = dados.bairro;
+              this.usuario.endereco.cidade = dados.localidade;
+              this.usuario.endereco.estado = dados.estado;
+            }
           });
+      } else {
+        alert('CEP inválido.');
       }
     }
   }
+
   // Achei esse método da Loiane ultrapassado
   //
   // populaDadosForm(dados: any, form: any) {
