@@ -11,10 +11,9 @@ export class DataFormComponent {
   formulario: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
+    // Passando o conteúdo abaixo para o construtor para corrigir o erro da 
+    // aula 89 - 90
 
-  }
-
-  ngOnInit() {
     // Forma verbosa de se criar os campos do formulário
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -28,6 +27,10 @@ export class DataFormComponent {
       nome: [null],
       email: [null]
     })
+  }
+
+  ngOnInit() {
+    
   }
 
 }

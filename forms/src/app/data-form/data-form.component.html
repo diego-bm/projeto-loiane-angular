@@ -1,1 +1,34 @@
-<p>data-form works!</p>
+<form class="form-horizontal" [formGroup]="formulario">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="nome" class="control-label">Nome</label>
+        </div>
+        <div class="col-sm-12 input-group">
+            <span>
+                <i class="bi bi-x-lg form-control-icon"></i>
+            </span>
+            <input type="text" class="form-control" id="nome" placeholder="Nome" 
+            formControlName="nome" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="email" class="control-label">E-mail</label>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span>
+                    <i class="bi bi-x-lg form-control-icon"></i>
+                </span>
+                <input type="email" class="form-control" id="email" placeholder="nome@email.com"  formControlName="email"
+                required email>
+            </div>
+        </div>
+    </div>
+    
+  <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+
+  <app-form-debug [form]="formulario"></app-form-debug>
+</form>
