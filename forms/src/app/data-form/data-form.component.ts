@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -10,8 +10,24 @@ export class DataFormComponent {
 
   formulario: FormGroup;
 
-  constructor(){
-    
+  constructor(private formBuilder: FormBuilder) {
+
+  }
+
+  ngOnInit() {
+    // Forma verbosa de se criar os campos do formulário
+    // this.formulario = new FormGroup({
+    //   nome: new FormControl(null),
+    //   email: new FormControl(null),
+    // });
+
+    // Essa forma também é verbosa, mas possui uma sintaxe mais simples.
+    // Por baixo dos panos, esse código faz a mesma coisa do bloco comentado
+    // acima.
+    this.formulario = this.formBuilder.group({
+      nome: [null],
+      email: [null]
+    })
   }
 
 }
