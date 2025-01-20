@@ -3,7 +3,7 @@
 // Provavelmente é uma mudança nos Angulars mais recentes.
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -31,9 +31,11 @@ export class DataFormComponent {
     // Por baixo dos panos, esse código faz a mesma coisa do bloco comentado
     // acima.
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null]
+      nome: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]]
     })
+
+    // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
   }
 
   ngOnInit(){
