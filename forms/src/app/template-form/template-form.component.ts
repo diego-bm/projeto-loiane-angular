@@ -41,7 +41,7 @@ export class TemplateFormComponent {
     }
   }
 
-  consultaCEP(cep: any){
+  consultaCEP(cep: string, form: any){
     cep = cep.replace(/\D/g, '');
 
     if (cep != '') {
@@ -49,8 +49,31 @@ export class TemplateFormComponent {
 
       if(validacep.test(cep)) {
         this.http.get(`//viacep.com.br/ws/${cep}/json/`)
-          .subscribe(dados => console.log(dados));
+          .subscribe((dados: any) => {
+            this.usuario.endereco.complemento = dados.complemento;
+            this.usuario.endereco.rua = dados.logradouro;
+            this.usuario.endereco.bairro = dados.bairro;
+            this.usuario.endereco.cidade = dados.localidade;
+            this.usuario.endereco.estado = dados.estado;
+          });
       }
     }
   }
+  // Achei esse método da Loiane ultrapassado
+  //
+  // populaDadosForm(dados: any, form: any) {
+  //   form.setValue({
+  //     nome: '',
+  //     email: '',
+  //     endereco: {
+  //       cep: '',
+  //       numero: '',
+  //       complemento: '',
+  //       rua: dados.logradouro,
+  //       bairro: '',
+  //       cidade: '',
+  //       estado: ''
+  //     }
+  //   })
+  // }
 }
