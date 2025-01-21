@@ -61,4 +61,34 @@ export class DataFormComponent {
     this.formulario.reset();
   }
 
+  // verificaEmailInvalido(){
+  //   let formControl: any = this.formulario.get('email');
+  //   if(!formControl && formControl.touched){
+  //     return false;
+  //   }
+
+  //   if(formControl.errors){
+  //     if(formControl.errors['email'] && formControl.touched){
+  //       return false;
+  //     }
+  //   }
+
+  //   return true;
+  // }
+
+  aplicaCssErro(campo: any){
+    return {
+      'label-input-invalid': this.verificaValidTouched(campo)
+    }
+  }
+
+  verificaValidTouched(campo: any){
+    let formControl: any = this.formulario.get(campo);
+    if(!campo || !formControl){
+      return false;
+    }
+
+    return !formControl.valid && formControl.touched;
+  }
+
 }
