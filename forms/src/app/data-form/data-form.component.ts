@@ -32,7 +32,14 @@ export class DataFormComponent {
     // acima.
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]]
+      email: [null, [Validators.required, Validators.email]],
+      cep: [null, Validators.required],
+      numero: [null, Validators.required],
+      complemento: [null],
+      rua: [null, Validators.required],
+      bairro: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required]
     })
 
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
@@ -76,13 +83,13 @@ export class DataFormComponent {
   //   return true;
   // }
 
-  aplicaCssErro(campo: any){
+  aplicaCssErro(campo: string){
     return {
       'label-input-invalid': this.verificaValidTouched(campo)
     }
   }
 
-  verificaValidTouched(campo: any){
+  verificaValidTouched(campo: string){
     let formControl: any = this.formulario.get(campo);
     if(!campo || !formControl){
       return false;
