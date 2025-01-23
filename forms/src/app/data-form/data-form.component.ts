@@ -57,18 +57,35 @@ export class DataFormComponent {
   }
 
   onSubmit(){
-    console.log(this.formulario.value);
+    if(this.formulario.valid){
+      // Usar o "error" ali depois do subscribe parece estar descontinuado.
+      // Pelo que eu entendi, devemos tratar esse erro no próprio corpo do
+      // subscribe, tratando a resposta que obtivermos.
+      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+      .subscribe(dados => {
+        console.log(dados);
+        // reseta o form;
+        this.resetar();
+      },
+      (error: any) => alert('erro')
+      );
+    } else {
+      console.log('formulario invalido.')
 
-    // Usar o "error" ali depois do subscribe parece estar descontinuado.
-    // Pelo que eu entendi, devemos tratar esse erro no próprio corpo do
-    // subscribe, tratando a resposta que obtivermos.
-    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-    .subscribe(dados => {
-      console.log(dados);
-      // reseta o form;
-      this.resetar();
-    },
-  (error: any) => alert('erro'));
+      this.verificaValidacoesFormulario(this.formulario);
+    }
+  }
+
+  verificaValidacoesFormulario(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(campo => {
+      console.log(campo);
+      const controle = formGroup.get(campo);
+      controle?.markAsDirty();
+
+      if(controle instanceof FormGroup){
+        this.verificaValidacoesFormulario(controle);
+      }
+    })
   }
 
   resetar(){
@@ -102,7 +119,7 @@ export class DataFormComponent {
       return false;
     }
 
-    return !formControl.valid && formControl.touched;
+    return !formControl.valid && (formControl.touched || formControl.dirty);
   }
 
   consultaCEP(){
