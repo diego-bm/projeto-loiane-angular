@@ -4,6 +4,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DropdownService } from '../shared/services/dropdown.service';
+import { EstadoBr } from '../shared/models/estado-br.model';
 
 @Component({
   selector: 'app-data-form',
@@ -13,14 +15,21 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class DataFormComponent {
 
   formulario: FormGroup;
+  estados: EstadoBr[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private dropdownService: DropdownService
   ) {
-    // Passando o conteúdo abaixo para o construtor para corrigir o erro da 
-    // aula 89 - 90
+    // Inicializando formGroup vazio para corrigir o erro da aula 89 - 90
+    this.formulario = this.formBuilder.group({});
+    // Isso me tem cara de gambiarra, mas vou tentar seguir a aula da forma
+    // mais fiel possível...
+    this.estados = [];
+  }
 
+  ngOnInit(){
     // Forma verbosa de se criar os campos do formulário
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -47,12 +56,15 @@ export class DataFormComponent {
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
       })
-    })
-
+    });
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
-  }
 
-  ngOnInit(){
+    this.dropdownService.getEstadosBr()
+    .subscribe((estadosBR: EstadoBr[]) => {
+      this.estados = estadosBR;
+      console.log(this.estados);
+    });
+
     
   }
 
