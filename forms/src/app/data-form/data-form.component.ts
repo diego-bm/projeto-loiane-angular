@@ -25,6 +25,10 @@ export class DataFormComponent {
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null),
+
+    //   endereco: new FormGroup({
+    //     cep: new FormControl(null)
+    //   })
     // });
 
     // Essa forma também é verbosa, mas possui uma sintaxe mais simples.
@@ -33,13 +37,16 @@ export class DataFormComponent {
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      cep: [null, Validators.required],
-      numero: [null, Validators.required],
-      complemento: [null],
-      rua: [null, Validators.required],
-      bairro: [null, Validators.required],
-      cidade: [null, Validators.required],
-      estado: [null, Validators.required]
+
+      endereco: this.formBuilder.group({
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null],
+        rua: [null, Validators.required],
+        bairro: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required]
+      })
     })
 
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
