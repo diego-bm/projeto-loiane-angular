@@ -105,4 +105,36 @@ export class DataFormComponent {
     return !formControl.valid && formControl.touched;
   }
 
+  consultaCEP(){
+    let cep = this.formulario.get('endereco.cep')?.value;
+
+    cep = cep.replace(/\D/g, '');
+
+    if (cep != '') {
+      var validacep = /^[0-9]{8}$/;
+
+      if(validacep.test(cep)){
+        this.http.get(`//viacep.com.br/ws/${cep}/json/`)
+          .subscribe((dados: any) => {
+            if(dados.erro == 'true'){
+              alert('O CEP inserido é inválido ou não foi encontrado.')
+              return;
+            } else {
+              this.populaDadosEndereco(dados);
+            }
+          });
+      } else {
+        alert('CEP inválido.');
+      }
+    }
+  }
+
+  populaDadosEndereco(dados: any){
+    this.formulario.get('endereco.complemento')?.setValue(dados.complemento)
+    this.formulario.get('endereco.rua')?.setValue(dados.logradouro)
+    this.formulario.get('endereco.bairro')?.setValue(dados.bairro)
+    this.formulario.get('endereco.cidade')?.setValue(dados.localidade)
+    this.formulario.get('endereco.estado')?.setValue(dados.estado)
+  }
+
 }
