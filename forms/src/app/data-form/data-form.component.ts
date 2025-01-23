@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-data-form',
@@ -20,7 +21,8 @@ export class DataFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private cepService: ConsultaCepService
   ) {
     // Inicializando formGroup vazio para corrigir o erro da aula 89 - 90
     this.formulario = this.formBuilder.group({});
@@ -135,26 +137,18 @@ export class DataFormComponent {
   }
 
   consultaCEP(){
-    let cep = this.formulario.get('endereco.cep')?.value;
+    let cep: string = this.formulario.get('endereco.cep')?.value;
 
-    cep = cep.replace(/\D/g, '');
-
-    if (cep != '') {
-      var validacep = /^[0-9]{8}$/;
-
-      if(validacep.test(cep)){
-        this.http.get(`//viacep.com.br/ws/${cep}/json/`)
-          .subscribe((dados: any) => {
-            if(dados.erro == 'true'){
-              alert('O CEP inserido é inválido ou não foi encontrado.')
-              return;
-            } else {
-              this.populaDadosEndereco(dados);
-            }
-          });
-      } else {
-        alert('CEP inválido.');
-      }
+    if(cep != null && cep !== ''){
+      this.cepService.consultaCEP(cep)
+      .subscribe((dados: any) => {
+        if(dados.erro == 'true'){
+          alert('O CEP inserido é inválido ou não foi encontrado.')
+          return;
+        } else {
+          this.populaDadosEndereco(dados);
+        }
+      });
     }
   }
 
