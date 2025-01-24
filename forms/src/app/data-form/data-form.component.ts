@@ -3,7 +3,7 @@
 // Provavelmente é uma mudança nos Angulars mais recentes.
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
@@ -21,6 +21,8 @@ export class DataFormComponent {
   cargos: any[];
   tecnologias: any[];
   newsletterOp: any[];
+
+  frameworks = ['Angular', 'React', 'Vue', 'Sencha'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,7 +71,8 @@ export class DataFormComponent {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     });
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
 
@@ -85,12 +88,35 @@ export class DataFormComponent {
     this.newsletterOp = this.dropdownService.getNewsletter();
   }
 
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+
+    return this.formBuilder.array(values);
+
+    // return this.formBuilder.array([
+    //   new FormControl(false),
+    //   new FormControl(false),
+    //   new FormControl(false),
+    //   new FormControl(false)
+    // ])
+  }
+
   onSubmit(){
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+        .map((v: any, i: number) => v ? this.frameworks[i] : null)
+        .filter((v: any) => v !== null)
+    });
+
+    console.log(valueSubmit);
+
     if(this.formulario.valid){
       // Usar o "error" ali depois do subscribe parece estar descontinuado.
       // Pelo que eu entendi, devemos tratar esse erro no próprio corpo do
       // subscribe, tratando a resposta que obtivermos.
-      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+      this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
       .subscribe(dados => {
         console.log(dados);
         // reseta o form;
@@ -190,5 +216,9 @@ export class DataFormComponent {
 
   setarTecnologias() {
     this.formulario.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
+  }
+
+  getControlsFrameworksFormArray(){
+    return (this.formulario.get('frameworks') as FormArray).controls;
   }
 }
