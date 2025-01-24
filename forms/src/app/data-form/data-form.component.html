@@ -134,11 +134,24 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <label for="tecnologia" class="control-label" [ngClass]="aplicaCssErro('tecnologia')">tecnologia</label>
+            <div class="input-group">
+                <span>
+                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('tecnologia')"></i>
+                </span>
+                <select multiple class="form-control" id="tecnologia" formControlName="tecnologias">
+                    <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">{{ tecnologia.desc }}</option>
+                </select>
+            </div>
+        </div>
     </div>
     
   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-  <button class="btn" (click)="resetar()">Cancelar</button>
-  <button class="btn" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-default" (click)="resetar()">Cancelar</button>
+  <button class="btn btn-info" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-info" (click)="setarTecnologias()">Tecnologias</button>
 
   <app-form-debug [form]="formulario"></app-form-debug>
 </form>
