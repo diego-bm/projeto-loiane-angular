@@ -111,7 +111,9 @@
                     <span>
                         <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.estado')"></i>
                     </span>
-                    <input type="text" class="form-control" id="estado" formControlName="estado">
+                    <select class="form-control" id="estado" formControlName="estado">
+                        <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
+                    </select>
                 </div>
                 <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.estado')" msgErro="Estado é obrigatório.">
                 </app-campo-control-erro>

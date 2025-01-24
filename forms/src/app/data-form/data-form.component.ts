@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-data-form',
@@ -16,7 +17,7 @@ import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 export class DataFormComponent {
 
   formulario: FormGroup;
-  estados: EstadoBr[];
+  estados: Observable<EstadoBr[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +29,7 @@ export class DataFormComponent {
     this.formulario = this.formBuilder.group({});
     // Isso me tem cara de gambiarra, mas vou tentar seguir a aula da forma
     // mais fiel possível...
-    this.estados = [];
+    this.estados = new Observable<EstadoBr[]>;
   }
 
   ngOnInit(){
@@ -61,13 +62,13 @@ export class DataFormComponent {
     });
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
 
-    this.dropdownService.getEstadosBr()
-    .subscribe((estadosBR: EstadoBr[]) => {
-      this.estados = estadosBR;
-      console.log(this.estados);
-    });
+    // this.dropdownService.getEstadosBr()
+    // .subscribe((estadosBR: EstadoBr[]) => {
+    //   this.estados = estadosBR;
+    //   console.log(this.estados);
+    // });
 
-    
+    this.estados = this.dropdownService.getEstadosBr();    
   }
 
   onSubmit(){
@@ -157,7 +158,7 @@ export class DataFormComponent {
     this.formulario.get('endereco.rua')?.setValue(dados.logradouro)
     this.formulario.get('endereco.bairro')?.setValue(dados.bairro)
     this.formulario.get('endereco.cidade')?.setValue(dados.localidade)
-    this.formulario.get('endereco.estado')?.setValue(dados.estado)
+    this.formulario.get('endereco.estado')?.setValue(dados.uf)
   }
 
 }
