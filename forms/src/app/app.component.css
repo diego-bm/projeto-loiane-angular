@@ -8,6 +8,19 @@ label {
     font-weight: bold;
 }
 
+label.radio-inline {
+    font-weight: normal;
+}
+
+label.checkbox-inline {
+    font-weight: normal;
+}
+
+label.checkbox-inline.label-input-invalid {
+    font-weight: normal;
+    color: darkred;
+}
+
 label.control-label.label-input-invalid {
     color: darkred;
     font-weight: bold;

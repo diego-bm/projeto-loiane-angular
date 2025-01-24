@@ -165,6 +165,18 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-md-3" [ngClass]="aplicaCssErro('termos')">
+            <div class="checkbox">
+                <label class="checkbox-inline" [ngClass]="aplicaCssErro('termos')">
+                    <input type="checkbox" formControlName="termos"> Aceito os termos.
+                </label>
+            </div>
+        </div>
+        <app-campo-control-erro [mostrarErro]="!formulario.get('termos')?.valid" msgErro="Aceite os termos.">
+        </app-campo-control-erro>
+    </div>
     
   <button type="submit" class="btn btn-primary" name="submit">Submit</button>
   <button class="btn btn-default" (click)="resetar()">Cancelar</button>
