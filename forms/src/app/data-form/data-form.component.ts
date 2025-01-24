@@ -18,6 +18,7 @@ export class DataFormComponent {
 
   formulario: FormGroup;
   estados: Observable<EstadoBr[]>;
+  cargos: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +31,7 @@ export class DataFormComponent {
     // Isso me tem cara de gambiarra, mas vou tentar seguir a aula da forma
     // mais fiel possível...
     this.estados = new Observable<EstadoBr[]>;
+    this.cargos = [];
   }
 
   ngOnInit(){
@@ -58,7 +60,9 @@ export class DataFormComponent {
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
-      })
+      }),
+
+      cargo: [null]
     });
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
 
@@ -68,7 +72,8 @@ export class DataFormComponent {
     //   console.log(this.estados);
     // });
 
-    this.estados = this.dropdownService.getEstadosBr();    
+    this.estados = this.dropdownService.getEstadosBr();  
+    this.cargos = this.dropdownService.getCargos();  
   }
 
   onSubmit(){
@@ -161,4 +166,12 @@ export class DataFormComponent {
     this.formulario.get('endereco.estado')?.setValue(dados.uf)
   }
 
+  setarCargo(){
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.formulario.get('cargo')?.setValue(cargo);
+  }
+
+  compararCargos(obj1: any, obj2: any){
+    return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 === obj2;
+  }
 }

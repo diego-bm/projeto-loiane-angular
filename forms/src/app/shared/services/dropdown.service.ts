@@ -14,4 +14,12 @@ export class DropdownService {
   getEstadosBr(): Observable<EstadoBr[]> {
     return this.httpClient.get<EstadoBr[]>('assets/dados/estadosbr.json');
   };
+
+  getCargos(){
+    return [
+      { nome: 'Dev', nivel: 'Junior', desc: 'Dev Jr' },
+      { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' },
+      { nome: 'Dev', nivel: 'Senior', desc: 'Dev Sr' }
+    ]
+  }
 }
