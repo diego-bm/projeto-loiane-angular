@@ -20,6 +20,7 @@ export class DataFormComponent {
   estados: Observable<EstadoBr[]>;
   cargos: any[];
   tecnologias: any[];
+  newsletterOp: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +35,7 @@ export class DataFormComponent {
     this.estados = new Observable<EstadoBr[]>;
     this.cargos = [];
     this.tecnologias = [];
+    this.newsletterOp = [];
   }
 
   ngOnInit(){
@@ -65,7 +67,8 @@ export class DataFormComponent {
       }),
 
       cargo: [null],
-      tecnologias: [null]
+      tecnologias: [null],
+      newsletter: ['s']
     });
     // Exemplos de Validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
 
@@ -78,6 +81,7 @@ export class DataFormComponent {
     this.estados = this.dropdownService.getEstadosBr();  
     this.cargos = this.dropdownService.getCargos();  
     this.tecnologias = this.dropdownService.getTecnologias();  
+    this.newsletterOp = this.dropdownService.getNewsletter();
   }
 
   onSubmit(){

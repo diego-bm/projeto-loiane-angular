@@ -121,9 +121,9 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-3">
-            <label for="cargo" class="control-label" [ngClass]="aplicaCssErro('cargo')">cargo</label>
+    <div class="form-group row">
+        <div class="col-md-4">
+            <label for="cargo" class="control-label" [ngClass]="aplicaCssErro('cargo')">Cargo</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('cargo')"></i>
@@ -135,8 +135,8 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-            <label for="tecnologia" class="control-label" [ngClass]="aplicaCssErro('tecnologia')">tecnologia</label>
+        <div class="col-md-4">
+            <label for="tecnologia" class="control-label" [ngClass]="aplicaCssErro('tecnologia')">Tecnologia</label>
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('tecnologia')"></i>
@@ -144,6 +144,24 @@
                 <select multiple class="form-control" id="tecnologia" formControlName="tecnologias">
                     <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">{{ tecnologia.desc }}</option>
                 </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="newsletter" class="control-label" [ngClass]="aplicaCssErro('newsletter')">Newsletter</label>
+            <div class="input-group">
+                <span>
+                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('newsletter')"></i>
+                </span>
+                <div id="newsletter" class="row">
+                    <div>
+                        <div *ngFor="let item of newsletterOp"  style="float: right; padding-right: 10px;">
+                            <label class="radio-inline">
+                                <input type="radio" [value]="item.valor" formControlName="newsletter" id="newsletter" /> {{ item.desc }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
