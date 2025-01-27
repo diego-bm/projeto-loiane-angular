@@ -177,7 +177,7 @@
         <app-campo-control-erro [mostrarErro]="!formulario.get('termos')?.valid" msgErro="Aceite os termos.">
         </app-campo-control-erro>
 
-        <div class="col-md-3" [ngClass]="aplicaCssErro('frameworks')">
+        <div [ngClass]="aplicaCssErro('frameworks')">
             <label for="frameworks">Frameworks</label>
             <div id="frameworks" class="row">
                 <div class="col-sm-4 checkbox" formArrayName="frameworks"
@@ -186,6 +186,8 @@
                         <input type="checkbox" [formControlName]="i"> {{ frameworks[i] }}
                     </label>
                 </div>
+                <app-campo-control-erro [mostrarErro]="!formulario.get('frameworks')?.valid" msgErro="Selecione 1 opção.">
+                </app-campo-control-erro>
             </div>
         </div>
     </div>
