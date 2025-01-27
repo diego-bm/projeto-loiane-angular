@@ -61,7 +61,7 @@ export class DataFormComponent {
       email: [null, [Validators.required, Validators.email]],
 
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
+        cep: [null, Validators.required, FormValidations.cepValidator],
         numero: [null, Validators.required],
         complemento: [null],
         rua: [null, Validators.required],
@@ -179,6 +179,13 @@ export class DataFormComponent {
     return !formControl.valid && (formControl.touched || formControl.dirty);
   }
 
+  verificaRequired(campo: string){
+    return <boolean>(
+      this.formulario.get(campo)?.hasError('required') &&
+      (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty)
+    );
+  }
+
   consultaCEP(){
     let cep: string = this.formulario.get('endereco.cep')?.value;
 
@@ -223,4 +230,11 @@ export class DataFormComponent {
   getControlsFrameworksFormArray(){
     return (this.formulario.get('frameworks') as FormArray).controls;
   }
+
+  verificaCepInvalido(){
+    return <boolean>(this.formulario.get('endereco.cep')?.hasError('cepInvalido'));
+  }
+
 }
+
+
