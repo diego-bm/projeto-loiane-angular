@@ -19,6 +19,7 @@
             <label for="email" class="control-label" [ngClass]="aplicaCssErro('email')">E-mail</label>
         </div>
 
+        <!-- TODO: Diferenciar erro de quando o e-mail está vazio e inválido -->
         <div class="col-sm-12">
             <div class="input-group">
                 <span>
@@ -27,7 +28,15 @@
                 <input type="email" class="form-control" id="email" placeholder="nome@email.com"  formControlName="email"
                 required email>
             </div>
-            <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail inválido.">
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail é obrigatório.">
+            </app-campo-control-erro>
+            <!-- TODO: transformar isso numa mensagem azul, pois não é erro -->
+            <app-campo-control-erro [mostrarErro]="getStatusValidacaoEmail() === 'PENDING'" msgErro="Validando e-mail">
+            </app-campo-control-erro>
+            <!-- TODO: transformar isso numa mensagem verde, pois não é erro -->
+            <app-campo-control-erro [mostrarErro]="getStatusValidacaoEmail() === 'VALID'" msgErro="E-mail válido!">
+            </app-campo-control-erro>
+            <app-campo-control-erro [mostrarErro]="verificaEmailCadastrado()" msgErro="E-mail já cadastrado!">
             </app-campo-control-erro>
             <!-- <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido.">
             </app-campo-control-erro> -->

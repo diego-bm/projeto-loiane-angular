@@ -8,8 +8,9 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FormValidations } from '../shared/services/form-validations';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -30,7 +31,8 @@ export class DataFormComponent {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
-    private cepService: ConsultaCepService
+    private cepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService
   ) {
     // Inicializando formGroup vazio para corrigir o erro da aula 89 - 90
     this.formulario = this.formBuilder.group({});
@@ -43,6 +45,8 @@ export class DataFormComponent {
   }
 
   ngOnInit(){
+    // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
+
     // Forma verbosa de se criar os campos do formulário
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -58,7 +62,7 @@ export class DataFormComponent {
     // acima.
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
 
       endereco: this.formBuilder.group({
@@ -171,6 +175,12 @@ export class DataFormComponent {
     }
   }
 
+  // aplicaCssErroVazio(campo: string){
+  //   return {
+  //     'label-input-invalid': this.verificaValidTouchedVazio(campo)
+  //   }
+  // }
+
   verificaValidTouched(campo: string){
     let formControl: any = this.formulario.get(campo);
     if(!campo || !formControl){
@@ -178,6 +188,15 @@ export class DataFormComponent {
     }
 
     return !formControl.valid && (formControl.touched || formControl.dirty);
+  }
+
+  verificaValidTouchedVazio(campo: string){
+    let formControl: any = this.formulario.get(campo);
+    if(!campo || !formControl){
+      return false;
+    }
+
+    return (!formControl.valid && (formControl.touched || formControl.dirty)) && formControl.value;
   }
 
   verificaRequired(campo: string){
@@ -237,7 +256,43 @@ export class DataFormComponent {
   }
 
   verificaEmailDiscrepante(){
-    return <boolean>this.formulario.get('confirmarEmail')?.hasError('equalsTo');
+    let campoEmail = this.formulario.get('confirmarEmail');
+
+    // Se o campo vier nulo, em teoria, ele nem foi renderizado ainda.
+    if(campoEmail == null){
+      return false;
+    }
+
+    if((campoEmail.touched || campoEmail.dirty) && !campoEmail.value){
+      return true;
+    }
+
+    let emailDiscrepante: boolean = campoEmail.hasError('equalsTo');
+
+    return emailDiscrepante;
+  }
+
+  validarEmail(formControl: FormControl){
+    return this.verificaEmailService.verificarEmail(formControl.value)
+    .pipe(map((emailExiste: boolean) => emailExiste ? { emailInvalido: true } : null))
+  }
+
+  getStatusValidacaoEmail(){
+    let statusEmail: string = <string>this.formulario.get('email')?.status;
+
+    return statusEmail;
+  }
+
+  verificaEmailCadastrado(){
+    let campoEmail = this.formulario.get('email');
+
+    if(!campoEmail){
+      return false;
+    }
+
+    let emailCadastrado: boolean = campoEmail.hasError('emailInvalido');
+
+    return emailCadastrado;
   }
 
   // verificaEmailInvalido(){
