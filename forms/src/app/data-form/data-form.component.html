@@ -32,6 +32,22 @@
             <!-- <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido.">
             </app-campo-control-erro> -->
         </div>
+
+        <div class="col-sm-12">
+            <label for="confirmarEmail" class="control-label" [ngClass]="aplicaCssErro('confirmarEmail')">Confirmar E-mail</label>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span>
+                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('confirmarEmail')"></i>
+                </span>
+                <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com"  formControlName="confirmarEmail"
+                required email>
+            </div>
+            <app-campo-control-erro [mostrarErro]="verificaEmailDiscrepante()" msgErro="Os e-mails não estão batendo.">
+            </app-campo-control-erro>
+        </div>
     </div>
 
     <div formGroupName="endereco">

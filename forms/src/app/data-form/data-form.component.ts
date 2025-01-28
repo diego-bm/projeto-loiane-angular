@@ -59,6 +59,7 @@ export class DataFormComponent {
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
+      confirmarEmail: [null, [FormValidations.equalsTo('email')]],
 
       endereco: this.formBuilder.group({
         cep: [null, Validators.required, FormValidations.cepValidator],
@@ -234,6 +235,14 @@ export class DataFormComponent {
   verificaCepInvalido(){
     return <boolean>(this.formulario.get('endereco.cep')?.hasError('cepInvalido'));
   }
+
+  verificaEmailDiscrepante(){
+    return <boolean>this.formulario.get('confirmarEmail')?.hasError('equalsTo');
+  }
+
+  // verificaEmailInvalido(){
+  //   return false;
+  // }
 
 }
 

@@ -1,4 +1,4 @@
-import { AbstractControl, FormArray, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export class FormValidations {
     // Código assistido por IA
@@ -35,5 +35,29 @@ export class FormValidations {
         }
         
         return null;
+    }
+
+    static equalsTo(otherField: string){
+        return (formControl: FormControl): ValidationErrors | null => {
+            if(otherField == null) {
+                throw new Error('É necessário informar um campo.');
+            }
+
+            if(!formControl.root || !(<FormGroup>formControl.root).controls){
+                return null;
+            }
+
+            const field = (<FormGroup>formControl.root).get(otherField);
+
+            if(!field){
+                throw new Error('É necessário informar um campo válido.');
+            }
+
+            if(field.value !== formControl.value) {
+                return { equalsTo: otherField };
+            }
+
+            return null;
+        };
     }
 }
