@@ -7,6 +7,7 @@ import { CampoControlErroComponent } from './campo-controls/campo-control-erro/c
 import { DropdownService } from './services/dropdown.service';
 import { CampoControlInfoComponent } from './campo-controls/campo-control-info/campo-control-info.component';
 import { CampoControlSuccessComponent } from './campo-controls/campo-control-success/campo-control-success.component';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
 
 
 
@@ -15,7 +16,8 @@ import { CampoControlSuccessComponent } from './campo-controls/campo-control-suc
     FormDebugComponent,
     CampoControlErroComponent,
     CampoControlInfoComponent,
-    CampoControlSuccessComponent
+    CampoControlSuccessComponent,
+    ErrorMsgComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { CampoControlSuccessComponent } from './campo-controls/campo-control-suc
     FormDebugComponent,
     CampoControlErroComponent,
     CampoControlInfoComponent,
-    CampoControlSuccessComponent
+    CampoControlSuccessComponent,
+    ErrorMsgComponent
   ],
   providers: [ DropdownService ]
 })
