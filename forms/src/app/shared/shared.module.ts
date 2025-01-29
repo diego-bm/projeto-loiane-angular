@@ -8,6 +8,8 @@ import { DropdownService } from './services/dropdown.service';
 import { CampoControlInfoComponent } from './campo-controls/campo-control-info/campo-control-info.component';
 import { CampoControlSuccessComponent } from './campo-controls/campo-control-success/campo-control-success.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
+import { InputFieldComponent } from './input-field/input-field.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,18 +19,21 @@ import { ErrorMsgComponent } from './error-msg/error-msg.component';
     CampoControlErroComponent,
     CampoControlInfoComponent,
     CampoControlSuccessComponent,
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    InputFieldComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   exports: [
     FormDebugComponent,
     CampoControlErroComponent,
     CampoControlInfoComponent,
     CampoControlSuccessComponent,
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    InputFieldComponent
   ],
   providers: [ DropdownService ]
 })
