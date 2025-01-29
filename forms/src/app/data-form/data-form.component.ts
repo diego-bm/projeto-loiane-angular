@@ -257,7 +257,7 @@ export class DataFormComponent {
 
   validarEmail(formControl: FormControl){
     return this.verificaEmailService.verificarEmail(formControl.value)
-    .pipe(map((emailExiste: boolean) => emailExiste ? { emailInvalido: true } : null))
+    .pipe(map((emailExiste: boolean) => emailExiste ? { emailCadastrado: true } : null))
   }
 
   getStatusValidacaoEmail(){
@@ -273,7 +273,7 @@ export class DataFormComponent {
       return false;
     }
 
-    let emailCadastrado: boolean = campoEmail.hasError('emailInvalido');
+    let emailCadastrado: boolean = campoEmail.hasError('emailCadastrado');
 
     return emailCadastrado;
   }

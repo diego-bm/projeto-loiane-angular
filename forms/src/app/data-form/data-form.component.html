@@ -28,8 +28,11 @@
                 <input type="email" class="form-control" id="email" placeholder="nome@email.com"  formControlName="email"
                 required email>
             </div>
-            <app-campo-control-erro [mostrarErro]="verificaRequired('email')" msgErro="E-mail é obrigatório.">
-            </app-campo-control-erro>
+            <!-- O componente de mensagens de erro da Loiane não reage corretamente às condições.
+            Vou assumir que isso será corrigido na próxima aula, irei manter os erros
+            customizados do e-mail. -->
+            <app-error-msg [control]="formulario.get('email')" label="E-mail">
+            </app-error-msg>
             <app-campo-control-info [mostrarInfo]="getStatusValidacaoEmail() === 'PENDING'" msgInfo="Validando e-mail">
             </app-campo-control-info>
             <app-campo-control-success [mostrarSucesso]="getStatusValidacaoEmail() === 'VALID'" msgSucesso="E-mail válido!">
@@ -67,10 +70,8 @@
                     </span>
                     <input type="text" class="form-control" id="cep" formControlName="cep" (blur)="consultaCEP()">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaRequired('endereco.cep')" msgErro="CEP é obrigatório.">
-                </app-campo-control-erro>
-                <app-campo-control-erro [mostrarErro]="verificaCepInvalido()" msgErro="CEP inválido.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP">
+                </app-error-msg>
             </div>
 
             <div class="col-md-3" >
@@ -81,8 +82,8 @@
                     </span>
                     <input type="text" class="form-control" id="numero" formControlName="numero">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.numero')" msgErro="Número é obrigatório.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.numero')" label="Número">
+                </app-error-msg>
             </div>
 
             <div class="col-md-6">
@@ -100,8 +101,8 @@
                     </span>
                     <input type="text" class="form-control" id="rua" formControlName="rua">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.rua')" msgErro="Rua é obrigatório.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.rua')" label="Rua">
+                </app-error-msg>
             </div>
         </div>
 
@@ -114,8 +115,8 @@
                     </span>
                     <input type="text" class="form-control" id="bairro" formControlName="bairro">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.bairro')" msgErro="Bairro é obrigatório.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.bairro')" label="Bairro">
+                </app-error-msg>
             </div>
 
             <div class="col-md-4">
@@ -126,8 +127,8 @@
                     </span>
                     <input type="text" class="form-control" id="cidade" formControlName="cidade">
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cidade')" msgErro="Cidade é obrigatório.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
+                </app-error-msg>
             </div>
 
             <div class="col-md-3">
@@ -140,8 +141,8 @@
                         <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
                     </select>
                 </div>
-                <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.estado')" msgErro="Estado é obrigatório.">
-                </app-campo-control-erro>
+                <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
+                </app-error-msg>
             </div>
         </div>
     </div>
