@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-12 input-group">
             <span>
-                <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('nome')"></i>
+                <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('nome')"></i>
             </span>
             <input type="text" class="form-control" id="nome" placeholder="Nome" 
             formControlName="nome" required>
@@ -19,27 +19,25 @@
             <label for="email" class="control-label" [ngClass]="aplicaCssErro('email')">E-mail</label>
         </div>
 
-        <!-- TODO: Diferenciar erro de quando o e-mail está vazio e inválido -->
         <div class="col-sm-12">
             <div class="input-group">
                 <span>
-                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('email')"></i>
+                    <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('email')"></i>
+                    <i class="bi bi-check-lg form-control-icon-sucesso" *ngIf="getStatusValidacaoEmail() === 'VALID'"></i>
                 </span>
                 <input type="email" class="form-control" id="email" placeholder="nome@email.com"  formControlName="email"
                 required email>
             </div>
-            <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail é obrigatório.">
+            <app-campo-control-erro [mostrarErro]="verificaRequired('email')" msgErro="E-mail é obrigatório.">
             </app-campo-control-erro>
-            <!-- TODO: transformar isso numa mensagem azul, pois não é erro -->
-            <app-campo-control-erro [mostrarErro]="getStatusValidacaoEmail() === 'PENDING'" msgErro="Validando e-mail">
-            </app-campo-control-erro>
-            <!-- TODO: transformar isso numa mensagem verde, pois não é erro -->
-            <app-campo-control-erro [mostrarErro]="getStatusValidacaoEmail() === 'VALID'" msgErro="E-mail válido!">
-            </app-campo-control-erro>
+            <app-campo-control-info [mostrarInfo]="getStatusValidacaoEmail() === 'PENDING'" msgInfo="Validando e-mail">
+            </app-campo-control-info>
+            <app-campo-control-success [mostrarSucesso]="getStatusValidacaoEmail() === 'VALID'" msgSucesso="E-mail válido!">
+            </app-campo-control-success>
             <app-campo-control-erro [mostrarErro]="verificaEmailCadastrado()" msgErro="E-mail já cadastrado!">
             </app-campo-control-erro>
-            <!-- <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido.">
-            </app-campo-control-erro> -->
+            <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido.">
+            </app-campo-control-erro>
         </div>
 
         <div class="col-sm-12">
@@ -49,7 +47,7 @@
         <div class="col-sm-12">
             <div class="input-group">
                 <span>
-                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('confirmarEmail')"></i>
+                    <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('confirmarEmail')"></i>
                 </span>
                 <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com"  formControlName="confirmarEmail"
                 required email>
@@ -65,7 +63,7 @@
                 <label for="cep" class="control-label" [ngClass]="aplicaCssErro('endereco.cep')">CEP</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.cep')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.cep')"></i>
                     </span>
                     <input type="text" class="form-control" id="cep" formControlName="cep" (blur)="consultaCEP()">
                 </div>
@@ -79,7 +77,7 @@
                 <label for="numero" class="control-label" [ngClass]="aplicaCssErro('endereco.numero')">Número</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.numero')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.numero')"></i>
                     </span>
                     <input type="text" class="form-control" id="numero" formControlName="numero">
                 </div>
@@ -98,7 +96,7 @@
                 <label for="rua" class="control-label" [ngClass]="aplicaCssErro('endereco.rua')">Rua</label>
                 <div class="col-sm-12 input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.rua')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.rua')"></i>
                     </span>
                     <input type="text" class="form-control" id="rua" formControlName="rua">
                 </div>
@@ -112,7 +110,7 @@
                 <label for="bairro" class="control-label" [ngClass]="aplicaCssErro('endereco.bairro')">Bairro</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.bairro')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.bairro')"></i>
                     </span>
                     <input type="text" class="form-control" id="bairro" formControlName="bairro">
                 </div>
@@ -124,7 +122,7 @@
                 <label for="cidade" class="control-label" [ngClass]="aplicaCssErro('endereco.cidade')">Cidade</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.cidade')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.cidade')"></i>
                     </span>
                     <input type="text" class="form-control" id="cidade" formControlName="cidade">
                 </div>
@@ -136,7 +134,7 @@
                 <label for="estado" class="control-label" [ngClass]="aplicaCssErro('endereco.estado')">Estado</label>
                 <div class="input-group">
                     <span>
-                        <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('endereco.estado')"></i>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.estado')"></i>
                     </span>
                     <select class="form-control" id="estado" formControlName="estado">
                         <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
@@ -153,7 +151,7 @@
             <label for="cargo" class="control-label" [ngClass]="aplicaCssErro('cargo')">Cargo</label>
             <div class="input-group">
                 <span>
-                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('cargo')"></i>
+                    <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('cargo')"></i>
                 </span>
                 <!-- Não entendi muito bem por que não posso passar a função nesse compareWith -->
                 <select class="form-control" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
@@ -166,7 +164,7 @@
             <label for="tecnologia" class="control-label" [ngClass]="aplicaCssErro('tecnologia')">Tecnologia</label>
             <div class="input-group">
                 <span>
-                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('tecnologia')"></i>
+                    <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('tecnologia')"></i>
                 </span>
                 <select multiple class="form-control" id="tecnologia" formControlName="tecnologias">
                     <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">{{ tecnologia.desc }}</option>
@@ -178,7 +176,7 @@
             <label for="newsletter" class="control-label" [ngClass]="aplicaCssErro('newsletter')">Newsletter</label>
             <div class="input-group">
                 <span>
-                    <i class="bi bi-x-lg form-control-icon" *ngIf="verificaValidTouched('newsletter')"></i>
+                    <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('newsletter')"></i>
                 </span>
                 <div id="newsletter" class="row">
                     <div>
@@ -213,7 +211,7 @@
                         <input type="checkbox" [formControlName]="i"> {{ frameworks[i] }}
                     </label>
                 </div>
-                <app-campo-control-erro [mostrarErro]="!formulario.get('frameworks')?.valid" msgErro="Selecione 1 opção.">
+                <app-campo-control-erro [mostrarErro]="verificaValidTouched('frameworks')" msgErro="Selecione 1 opção.">
                 </app-campo-control-erro>
             </div>
         </div>

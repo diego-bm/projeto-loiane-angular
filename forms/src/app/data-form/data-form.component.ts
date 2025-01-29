@@ -154,32 +154,11 @@ export class DataFormComponent {
     this.formulario.reset();
   }
 
-  // verificaEmailInvalido(){
-  //   let formControl: any = this.formulario.get('email');
-  //   if(!formControl && formControl.touched){
-  //     return false;
-  //   }
-
-  //   if(formControl.errors){
-  //     if(formControl.errors['email'] && formControl.touched){
-  //       return false;
-  //     }
-  //   }
-
-  //   return true;
-  // }
-
   aplicaCssErro(campo: string){
     return {
       'label-input-invalid': this.verificaValidTouched(campo)
     }
   }
-
-  // aplicaCssErroVazio(campo: string){
-  //   return {
-  //     'label-input-invalid': this.verificaValidTouchedVazio(campo)
-  //   }
-  // }
 
   verificaValidTouched(campo: string){
     let formControl: any = this.formulario.get(campo);
@@ -190,7 +169,11 @@ export class DataFormComponent {
     return !formControl.valid && (formControl.touched || formControl.dirty);
   }
 
-  verificaValidTouchedVazio(campo: string){
+  verificaEmailInvalido(){
+    return this.verificaValidTouchedNotEmpty('email') && this.getStatusValidacaoEmail() !== 'PENDING' && !this.verificaEmailCadastrado();
+  }
+
+  verificaValidTouchedNotEmpty(campo: string){
     let formControl: any = this.formulario.get(campo);
     if(!campo || !formControl){
       return false;
@@ -294,11 +277,6 @@ export class DataFormComponent {
 
     return emailCadastrado;
   }
-
-  // verificaEmailInvalido(){
-  //   return false;
-  // }
-
 }
 
 

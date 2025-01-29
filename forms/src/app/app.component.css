@@ -26,7 +26,7 @@ label.control-label.label-input-invalid {
     font-weight: bold;
 }
 
-.form-group .form-control-icon {
+.form-group .form-control-icon-erro {
     position: absolute;
     z-index: 2;
     display: block;
@@ -36,6 +36,19 @@ label.control-label.label-input-invalid {
     text-align: end;
     pointer-events: none;
     color: red;
+    padding-right: 5px;
+}
+
+.form-group .form-control-icon-sucesso {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 99%;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: end;
+    pointer-events: none;
+    color: green;
     padding-right: 5px;
 }
 
