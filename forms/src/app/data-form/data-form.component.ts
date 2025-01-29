@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { map, Observable } from 'rxjs';
+import { EMPTY, empty, map, Observable, switchMap, tap } from 'rxjs';
 import { FormValidations } from '../shared/services/form-validations';
 import { VerificaEmailService } from './services/verifica-email.service';
 
@@ -45,6 +45,11 @@ export class DataFormComponent {
   }
 
   ngOnInit(){
+    this.estados = this.dropdownService.getEstadosBr();  
+    this.cargos = this.dropdownService.getCargos();  
+    this.tecnologias = this.dropdownService.getTecnologias();  
+    this.newsletterOp = this.dropdownService.getNewsletter();
+
     // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
 
     // Forma verbosa de se criar os campos do formulário
@@ -89,10 +94,17 @@ export class DataFormComponent {
     //   console.log(this.estados);
     // });
 
-    this.estados = this.dropdownService.getEstadosBr();  
-    this.cargos = this.dropdownService.getCargos();  
-    this.tecnologias = this.dropdownService.getTecnologias();  
-    this.newsletterOp = this.dropdownService.getNewsletter();
+    // Fazer isso quebra a funcionalidade de filtrar o CEP através de RegEx
+    this.formulario.get('endereco.cep')?.statusChanges
+    .pipe(
+      tap(value => console.log('status CEP: ', value)),
+      switchMap(status => status === 'VALID'
+        ? this.cepService.consultaCEP(this.formulario.get('endereco.cep')?.value)
+        // Diferente do da Loiane por que agora o empty é uma constante
+        : EMPTY
+      )
+    )
+    .subscribe(dados => dados ? this.populaDadosEndereco(dados) : {});
   }
 
   buildFrameworks() {

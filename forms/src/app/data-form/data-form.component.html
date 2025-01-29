@@ -68,7 +68,7 @@
                     <span>
                         <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.cep')"></i>
                     </span>
-                    <input type="text" class="form-control" id="cep" formControlName="cep" (blur)="consultaCEP()">
+                    <input type="text" class="form-control" id="cep" formControlName="cep">
                 </div>
                 <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP">
                 </app-error-msg>
