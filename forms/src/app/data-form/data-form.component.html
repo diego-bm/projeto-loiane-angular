@@ -125,7 +125,35 @@ getCampo() -->
                 </app-error-msg>
             </div>
 
+            <div class="col-md-3">
+                <label for="estado" class="control-label" [ngClass]="aplicaCssErro('endereco.estado')">Estado</label>
+                <div class="input-group">
+                    <span>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.estado')"></i>
+                    </span>
+                    <select class="form-control" id="estado" formControlName="estado">
+                        <option *ngFor="let estado of estados" [value]="estado.sigla">{{ estado.nome }}</option>
+                    </select>
+                </div>
+                <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
+                </app-error-msg>
+            </div>
+
             <div class="col-md-4">
+                <label for="cidade" class="control-label" [ngClass]="aplicaCssErro('endereco.cidade')">Cidade</label>
+                <div class="input-group">
+                    <span>
+                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.cidade')"></i>
+                    </span>
+                    <select class="form-control" id="cidade" formControlName="cidade">
+                        <option *ngFor="let cidade of cidades" [value]="cidade.nome">{{ cidade.nome }}</option>
+                    </select>
+                </div>
+                <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
+                </app-error-msg>
+            </div>
+
+            <!-- <div class="col-md-4">
                 <label for="cidade" class="control-label" [ngClass]="aplicaCssErro('endereco.cidade')">Cidade</label>
                 <div class="input-group">
                     <span>
@@ -135,21 +163,7 @@ getCampo() -->
                 </div>
                 <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
                 </app-error-msg>
-            </div>
-
-            <div class="col-md-3">
-                <label for="estado" class="control-label" [ngClass]="aplicaCssErro('endereco.estado')">Estado</label>
-                <div class="input-group">
-                    <span>
-                        <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('endereco.estado')"></i>
-                    </span>
-                    <select class="form-control" id="estado" formControlName="estado">
-                        <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
-                    </select>
-                </div>
-                <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
-                </app-error-msg>
-            </div>
+            </div> -->
         </div>
     </div>
 

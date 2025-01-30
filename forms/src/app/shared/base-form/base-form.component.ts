@@ -25,6 +25,8 @@ export abstract class BaseFormComponent {
     }
   }
 
+  // TODO: Implementar a forma diferente de validar campos feita pela Loiane.
+  // Disponível em: loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit
   verificaValidacoesFormulario(formGroup: FormGroup | FormArray){
     Object.keys(formGroup.controls).forEach(campo => {
       console.log(campo);

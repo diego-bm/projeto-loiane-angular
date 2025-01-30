@@ -12,6 +12,7 @@ import { EMPTY, empty, map, Observable, switchMap, tap } from 'rxjs';
 import { FormValidations } from '../shared/services/form-validations';
 import { VerificaEmailService } from './services/verifica-email.service';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
+import { Cidade } from '../shared/models/cidade.model';
 
 @Component({
   selector: 'app-data-form',
@@ -21,7 +22,8 @@ import { BaseFormComponent } from '../shared/base-form/base-form.component';
 export class DataFormComponent extends BaseFormComponent {
 
   // formulario: FormGroup;
-  estados: Observable<EstadoBr[]>;
+  estados: EstadoBr[];
+  cidades: Cidade[];
   cargos: any[];
   tecnologias: any[];
   newsletterOp: any[];
@@ -41,14 +43,18 @@ export class DataFormComponent extends BaseFormComponent {
     this.formulario = this.formBuilder.group({});
     // Isso me tem cara de gambiarra, mas vou tentar seguir a aula da forma
     // mais fiel possível...
-    this.estados = new Observable<EstadoBr[]>;
+    this.estados = [];
+    this.cidades = [];
     this.cargos = [];
     this.tecnologias = [];
     this.newsletterOp = [];
   }
 
   ngOnInit(){
-    this.estados = this.dropdownService.getEstadosBr();  
+    // this.estados = this.dropdownService.getEstadosBr();  
+    this.dropdownService.getEstadosBr()
+      .subscribe((dados: EstadoBr[]) => this.estados = dados);
+    
     this.cargos = this.dropdownService.getCargos();  
     this.tecnologias = this.dropdownService.getTecnologias();  
     this.newsletterOp = this.dropdownService.getNewsletter();
@@ -108,6 +114,18 @@ export class DataFormComponent extends BaseFormComponent {
       )
     )
     .subscribe(dados => dados ? this.populaDadosEndereco(dados) : {});
+
+    this.getCampo('endereco.estado')?.valueChanges
+      .pipe(
+        tap((estado: string) => console.log('Novo estado: ', estado)),
+        map((estado: string) => this.estados.filter((e: EstadoBr) => e.sigla === estado)),
+        map((estados: EstadoBr[]) => estados && estados.length > 0 ? estados[0].id : 0),
+        switchMap((estadoId: number) => this.dropdownService.getCidades(estadoId)),
+        tap(console.log)
+      )
+      .subscribe((cidades: Cidade[]) => this.cidades = cidades);
+
+    // this.dropdownService.getCidades(8).subscribe(console.log);
   }
 
   buildFrameworks() {
