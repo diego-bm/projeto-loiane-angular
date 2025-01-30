@@ -1,8 +1,6 @@
-<!-- TODO: Trocar as funções que servem apenas para pegar campos para um
-getCampo() -->
 <form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <app-input-field class="col-sm-12" formControlName="nome" [classeCss]="aplicaCssErro('nome')"
-    id="nome" label="Nome" [control]="formulario.get('nome')">
+    id="nome" label="Nome" [control]="formulario.get('nome')" placeholder="Nome">
     </app-input-field>
     
     <!-- <div class="form-group">
@@ -29,7 +27,7 @@ getCampo() -->
             <div class="input-group">
                 <span>
                     <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('email')"></i>
-                    <i class="bi bi-check-lg form-control-icon-sucesso" *ngIf="getStatusValidacaoEmail() === 'VALID'"></i>
+                    <i class="bi bi-check-lg form-control-icon-sucesso" *ngIf="this.getCampo('email')?.status === 'VALID'"></i>
                 </span>
                 <input type="email" class="form-control" id="email" placeholder="nome@email.com"  formControlName="email"
                 required email>
@@ -37,11 +35,11 @@ getCampo() -->
             <!-- O componente de mensagens de erro da Loiane não reage corretamente às condições.
             Vou assumir que isso será corrigido na próxima aula, irei manter os erros
             customizados do e-mail. -->
-            <app-error-msg [control]="formulario.get('email')" label="E-mail">
+            <app-error-msg [control]="this.getCampo('email')" label="E-mail">
             </app-error-msg>
-            <app-campo-control-info [mostrarInfo]="getStatusValidacaoEmail() === 'PENDING'" msgInfo="Validando e-mail">
+            <app-campo-control-info [mostrarInfo]="this.getCampo('email')?.status === 'PENDING'" msgInfo="Validando e-mail">
             </app-campo-control-info>
-            <app-campo-control-success [mostrarSucesso]="getStatusValidacaoEmail() === 'VALID'" msgSucesso="E-mail válido!">
+            <app-campo-control-success [mostrarSucesso]="this.getCampo('email')?.status === 'VALID'" msgSucesso="E-mail válido!">
             </app-campo-control-success>
             <app-campo-control-erro [mostrarErro]="verificaEmailCadastrado()" msgErro="E-mail já cadastrado!">
             </app-campo-control-erro>
@@ -58,8 +56,7 @@ getCampo() -->
                 <span>
                     <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched('confirmarEmail')"></i>
                 </span>
-                <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com"  formControlName="confirmarEmail"
-                required email>
+                <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com"  formControlName="confirmarEmail">
             </div>
             <app-campo-control-erro [mostrarErro]="verificaEmailDiscrepante()" msgErro="Os e-mails não estão batendo.">
             </app-campo-control-erro>
@@ -76,7 +73,7 @@ getCampo() -->
                     </span>
                     <input type="text" class="form-control" id="cep" formControlName="cep">
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP">
+                <app-error-msg [control]="this.getCampo('endereco.cep')" label="CEP">
                 </app-error-msg>
             </div>
 
@@ -88,7 +85,7 @@ getCampo() -->
                     </span>
                     <input type="text" class="form-control" id="numero" formControlName="numero">
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.numero')" label="Número">
+                <app-error-msg [control]="this.getCampo('endereco.numero')" label="Número">
                 </app-error-msg>
             </div>
 
@@ -107,7 +104,7 @@ getCampo() -->
                     </span>
                     <input type="text" class="form-control" id="rua" formControlName="rua">
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.rua')" label="Rua">
+                <app-error-msg [control]="this.getCampo('endereco.rua')" label="Rua">
                 </app-error-msg>
             </div>
         </div>
@@ -121,7 +118,7 @@ getCampo() -->
                     </span>
                     <input type="text" class="form-control" id="bairro" formControlName="bairro">
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.bairro')" label="Bairro">
+                <app-error-msg [control]="this.getCampo('endereco.bairro')" label="Bairro">
                 </app-error-msg>
             </div>
 
@@ -135,7 +132,7 @@ getCampo() -->
                         <option *ngFor="let estado of estados" [value]="estado.sigla">{{ estado.nome }}</option>
                     </select>
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
+                <app-error-msg [control]="this.getCampo('endereco.estado')" label="Estado">
                 </app-error-msg>
             </div>
 
@@ -149,7 +146,7 @@ getCampo() -->
                         <option *ngFor="let cidade of cidades" [value]="cidade.nome">{{ cidade.nome }}</option>
                     </select>
                 </div>
-                <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
+                <app-error-msg [control]="this.getCampo('endereco.cidade')" label="Cidade">
                 </app-error-msg>
             </div>
 
@@ -220,7 +217,7 @@ getCampo() -->
                 </label>
             </div>
         </div>
-        <app-campo-control-erro [mostrarErro]="!formulario.get('termos')?.valid" msgErro="Aceite os termos.">
+        <app-campo-control-erro [mostrarErro]="!this.getCampo('termos')?.valid" msgErro="Aceite os termos.">
         </app-campo-control-erro>
 
         <div [ngClass]="aplicaCssErro('frameworks')">

@@ -8,14 +8,19 @@ import { FormArray, FormGroup } from '@angular/forms';
 export abstract class BaseFormComponent {
 
   formulario: FormGroup
+  private formSubmitAttempt: boolean;
+
 
   constructor() {
     this.formulario = new FormGroup({},null,null);
+    this.formSubmitAttempt = false;
   }
 
   abstract submit(): void;
 
   onSubmit() {
+    this.formSubmitAttempt = true;
+
     if(this.formulario.valid) {
       this.submit();
     } else {
@@ -25,8 +30,6 @@ export abstract class BaseFormComponent {
     }
   }
 
-  // TODO: Implementar a forma diferente de validar campos feita pela Loiane.
-  // Disponível em: loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit
   verificaValidacoesFormulario(formGroup: FormGroup | FormArray){
     Object.keys(formGroup.controls).forEach(campo => {
       console.log(campo);
@@ -42,16 +45,14 @@ export abstract class BaseFormComponent {
 
   resetar(){
     this.formulario.reset();
+    this.formSubmitAttempt = false;
   }
 
-  // TODO: Remover isso daqui para apenas utilizar o do input-field
   verificaValidTouched(campo: string){
-    let formControl: any = this.getCampo(campo);
-    if(!campo || !formControl){
-      return false;
-    }
+    return <boolean>((!this.getCampo(campo)?.valid && (this.getCampo(campo)?.touched || this.getCampo(campo)?.dirty)) ||
+      ((this.getCampo(campo)?.untouched || this.getCampo(campo)?.pristine) && this.formSubmitAttempt));
 
-    return !formControl.valid && (formControl.touched || formControl.dirty);
+    
   }
 
   verificaRequired(campo: string){
@@ -62,7 +63,24 @@ export abstract class BaseFormComponent {
   }
 
   verificaEmailInvalido(){
-    return this.verificaValidTouchedNotEmpty('email') && this.getStatusValidacaoEmail() !== 'PENDING' && !this.verificaEmailCadastrado();
+    return this.verificaValidTouchedNotEmpty('email') && this.getCampo('email')?.status !== 'PENDING' && !this.verificaEmailCadastrado();
+  }
+
+  verificaEmailDiscrepante(){
+    let campoEmail = this.getCampo('confirmarEmail');
+
+    // Se o campo vier nulo, em teoria, ele nem foi renderizado ainda.
+    if(campoEmail == null){
+      return false;
+    }
+
+    if((campoEmail.touched || campoEmail.dirty) && !campoEmail.value){
+      return true;
+    }
+
+    let emailDiscrepante: boolean = campoEmail.hasError('equalsTo');
+
+    return emailDiscrepante;
   }
 
   verificaValidTouchedNotEmpty(campo: string){
@@ -74,11 +92,11 @@ export abstract class BaseFormComponent {
     return (!formControl.valid && (formControl.touched || formControl.dirty)) && formControl.value;
   }
 
-  getStatusValidacaoEmail(){
-    let statusEmail: string = <string>this.getCampo('email')?.status;
+  // getStatusValidacaoEmail(){
+  //   let statusEmail: string = <string>this.getCampo('email')?.status;
 
-    return statusEmail;
-  }
+  //   return statusEmail;
+  // }
 
   verificaEmailCadastrado(){
     let campoEmail = this.getCampo('email');
@@ -100,6 +118,11 @@ export abstract class BaseFormComponent {
 
   getCampo(campo: string) {
     return this.formulario.get(campo);
+  }
+
+  isFieldValid(campo: string) {
+    return (!this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched) ||
+      (this.formulario.get(campo)?.untouched && this.formSubmitAttempt);
   }
 
 }

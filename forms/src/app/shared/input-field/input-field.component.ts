@@ -18,6 +18,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() label: string;
   @Input() type: string = 'text';
+  @Input() placeholder: string;
   @Input() control: any;
   @Input() isReadOnly: boolean = false;
 
@@ -37,6 +38,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   constructor() {
     this.id = '';
     this.label = '';
+    this.placeholder = '';
   }
 
   onChangeCb: (_: any) => void = () => {};

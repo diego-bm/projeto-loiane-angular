@@ -3,11 +3,10 @@
     <span>
         <i class="bi bi-x-lg form-control-icon-erro" *ngIf="verificaValidTouched(id)"></i>
     </span>
-    <!-- TODO: fazer um Input extra para colocar o placeholder do campo -->
      <!-- Exclamação dupla serve para prevenir erros envolvendo undefined. o TS
      vai fazer a dupla negação e, se vier undefined, irá voltar como false,
      como deve ser. -->
-    <input [type]="type" class="form-control" [id]="id" placeholder="Nome"
+    <input [type]="type" class="form-control" [id]="id" [placeholder]="placeholder"
     [readonly]="!!isReadOnly" [(ngModel)]="value" />
     <app-error-msg [control]="control" [label]="label">
     </app-error-msg>

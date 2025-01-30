@@ -211,23 +211,6 @@ export class DataFormComponent extends BaseFormComponent {
     return <boolean>(this.getCampo('endereco.cep')?.hasError('cepInvalido'));
   }
 
-  verificaEmailDiscrepante(){
-    let campoEmail = this.getCampo('confirmarEmail');
-
-    // Se o campo vier nulo, em teoria, ele nem foi renderizado ainda.
-    if(campoEmail == null){
-      return false;
-    }
-
-    if((campoEmail.touched || campoEmail.dirty) && !campoEmail.value){
-      return true;
-    }
-
-    let emailDiscrepante: boolean = campoEmail.hasError('equalsTo');
-
-    return emailDiscrepante;
-  }
-
   validarEmail(formControl: FormControl){
     return this.verificaEmailService.verificarEmail(formControl.value)
     .pipe(map((emailExiste: boolean) => emailExiste ? { emailCadastrado: true } : null))
