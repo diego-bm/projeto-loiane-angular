@@ -1,3 +1,5 @@
+<!-- TODO: Trocar as funções que servem apenas para pegar campos para um
+getCampo() -->
 <form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <app-input-field class="col-sm-12" formControlName="nome" [classeCss]="aplicaCssErro('nome')"
     id="nome" label="Nome" [control]="formulario.get('nome')">

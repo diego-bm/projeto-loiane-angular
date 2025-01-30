@@ -11,15 +11,16 @@ import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { EMPTY, empty, map, Observable, switchMap, tap } from 'rxjs';
 import { FormValidations } from '../shared/services/form-validations';
 import { VerificaEmailService } from './services/verifica-email.service';
+import { BaseFormComponent } from '../shared/base-form/base-form.component';
 
 @Component({
   selector: 'app-data-form',
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.css']
 })
-export class DataFormComponent {
+export class DataFormComponent extends BaseFormComponent {
 
-  formulario: FormGroup;
+  // formulario: FormGroup;
   estados: Observable<EstadoBr[]>;
   cargos: any[];
   tecnologias: any[];
@@ -34,6 +35,8 @@ export class DataFormComponent {
     private cepService: ConsultaCepService,
     private verificaEmailService: VerificaEmailService
   ) {
+    super();
+
     // Inicializando formGroup vazio para corrigir o erro da aula 89 - 90
     this.formulario = this.formBuilder.group({});
     // Isso me tem cara de gambiarra, mas vou tentar seguir a aula da forma
@@ -95,11 +98,11 @@ export class DataFormComponent {
     // });
 
     // Fazer isso quebra a funcionalidade de filtrar o CEP através de RegEx
-    this.formulario.get('endereco.cep')?.statusChanges
+    this.getCampo('endereco.cep')?.statusChanges
     .pipe(
       tap(value => console.log('status CEP: ', value)),
       switchMap(status => status === 'VALID'
-        ? this.cepService.consultaCEP(this.formulario.get('endereco.cep')?.value)
+        ? this.cepService.consultaCEP(this.getCampo('endereco.cep')?.value)
         // Diferente do da Loiane por que agora o empty é uma constante
         : EMPTY
       )
@@ -120,7 +123,7 @@ export class DataFormComponent {
     // ])
   }
 
-  onSubmit(){
+  override submit(): void {
     let valueSubmit = Object.assign({}, this.formulario.value);
 
     valueSubmit = Object.assign(valueSubmit, {
@@ -131,11 +134,7 @@ export class DataFormComponent {
 
     console.log(valueSubmit);
 
-    if(this.formulario.valid){
-      // Usar o "error" ali depois do subscribe parece estar descontinuado.
-      // Pelo que eu entendi, devemos tratar esse erro no próprio corpo do
-      // subscribe, tratando a resposta que obtivermos.
-      this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
+    this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
       .subscribe(dados => {
         console.log(dados);
         // reseta o form;
@@ -143,67 +142,10 @@ export class DataFormComponent {
       },
       (error: any) => alert('erro')
       );
-    } else {
-      console.log('formulario invalido.')
-
-      this.verificaValidacoesFormulario(this.formulario);
-    }
-  }
-
-  verificaValidacoesFormulario(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
-      const controle = formGroup.get(campo);
-      controle?.markAsDirty();
-
-      if(controle instanceof FormGroup){
-        this.verificaValidacoesFormulario(controle);
-      }
-    })
-  }
-
-  resetar(){
-    this.formulario.reset();
-  }
-
-  aplicaCssErro(campo: string){
-    return {
-      'label-input-invalid': this.verificaValidTouched(campo)
-    }
-  }
-
-  // TODO: Remover isso daqui para apenas utilizar o do input-field
-  verificaValidTouched(campo: string){
-    let formControl: any = this.formulario.get(campo);
-    if(!campo || !formControl){
-      return false;
-    }
-
-    return !formControl.valid && (formControl.touched || formControl.dirty);
-  }
-
-  verificaEmailInvalido(){
-    return this.verificaValidTouchedNotEmpty('email') && this.getStatusValidacaoEmail() !== 'PENDING' && !this.verificaEmailCadastrado();
-  }
-
-  verificaValidTouchedNotEmpty(campo: string){
-    let formControl: any = this.formulario.get(campo);
-    if(!campo || !formControl){
-      return false;
-    }
-
-    return (!formControl.valid && (formControl.touched || formControl.dirty)) && formControl.value;
-  }
-
-  verificaRequired(campo: string){
-    return <boolean>(
-      this.formulario.get(campo)?.hasError('required') &&
-      (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty)
-    );
   }
 
   consultaCEP(){
-    let cep: string = this.formulario.get('endereco.cep')?.value;
+    let cep: string = this.getCampo('endereco.cep')?.value;
 
     if(cep != null && cep !== ''){
       this.cepService.consultaCEP(cep)
@@ -219,16 +161,16 @@ export class DataFormComponent {
   }
 
   populaDadosEndereco(dados: any){
-    this.formulario.get('endereco.complemento')?.setValue(dados.complemento)
-    this.formulario.get('endereco.rua')?.setValue(dados.logradouro)
-    this.formulario.get('endereco.bairro')?.setValue(dados.bairro)
-    this.formulario.get('endereco.cidade')?.setValue(dados.localidade)
-    this.formulario.get('endereco.estado')?.setValue(dados.uf)
+    this.getCampo('endereco.complemento')?.setValue(dados.complemento)
+    this.getCampo('endereco.rua')?.setValue(dados.logradouro)
+    this.getCampo('endereco.bairro')?.setValue(dados.bairro)
+    this.getCampo('endereco.cidade')?.setValue(dados.localidade)
+    this.getCampo('endereco.estado')?.setValue(dados.uf)
   }
 
   setarCargo(){
     const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
-    this.formulario.get('cargo')?.setValue(cargo);
+    this.getCampo('cargo')?.setValue(cargo);
   }
 
   compararCargos(obj1: any, obj2: any){
@@ -240,19 +182,19 @@ export class DataFormComponent {
   }
 
   setarTecnologias() {
-    this.formulario.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
+    this.getCampo('tecnologias')?.setValue(['java', 'javascript', 'php']);
   }
 
   getControlsFrameworksFormArray(){
-    return (this.formulario.get('frameworks') as FormArray).controls;
+    return (this.getCampo('frameworks') as FormArray).controls;
   }
 
   verificaCepInvalido(){
-    return <boolean>(this.formulario.get('endereco.cep')?.hasError('cepInvalido'));
+    return <boolean>(this.getCampo('endereco.cep')?.hasError('cepInvalido'));
   }
 
   verificaEmailDiscrepante(){
-    let campoEmail = this.formulario.get('confirmarEmail');
+    let campoEmail = this.getCampo('confirmarEmail');
 
     // Se o campo vier nulo, em teoria, ele nem foi renderizado ainda.
     if(campoEmail == null){
@@ -273,23 +215,6 @@ export class DataFormComponent {
     .pipe(map((emailExiste: boolean) => emailExiste ? { emailCadastrado: true } : null))
   }
 
-  getStatusValidacaoEmail(){
-    let statusEmail: string = <string>this.formulario.get('email')?.status;
-
-    return statusEmail;
-  }
-
-  verificaEmailCadastrado(){
-    let campoEmail = this.formulario.get('email');
-
-    if(!campoEmail){
-      return false;
-    }
-
-    let emailCadastrado: boolean = campoEmail.hasError('emailCadastrado');
-
-    return emailCadastrado;
-  }
 }
 
 
