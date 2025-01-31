@@ -1,0 +1,12 @@
+{
+  "cursos": [
+    {
+      "id": "1",
+      "nome": "Angular"
+    },
+    {
+      "id": "a198",
+      "nome": "Java"
+    }
+  ]
+}
