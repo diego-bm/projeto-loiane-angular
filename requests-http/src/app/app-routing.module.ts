@@ -8,6 +8,10 @@ const routes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./cursos/cursos.module').then(x => x.CursosModule)
+  },
+  {
+    path: 'rxjs-poc',
+    loadChildren: () => import('./unsubscribe-rxjs/unsubscribe-rxjs.module').then(x => x.UnsubscribeRxjsModule)
   }
 ];
 

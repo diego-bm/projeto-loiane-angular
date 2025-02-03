@@ -7,10 +7,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" [routerLink]="['/']" routerLinkActive="active">Home</a>
+          <a class="nav-link" aria-current="page" [routerLink]="['/']" routerLinkActive="active">Home
+            <span class="sr-only">(current)</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/cursos']" routerLinkActive="active">Cursos</a>
+          <a class="nav-link" [routerLink]="['/cursos']" routerLinkActive="active">Cursos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/rxjs-poc']">RxJS POC</a>
         </li>
       </ul>
     </div>
