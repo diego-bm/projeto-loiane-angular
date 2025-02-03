@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Curso } from './models/curso.model';
 import { tap } from 'rxjs';
+import { enviroment } from 'src/enviroments/enviroment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursosService {
 
-  private readonly API = 'http://localhost:3000/cursos';
+  private readonly API = `${enviroment.API}cursos`;
 
   constructor(private http: HttpClient) { }
 
