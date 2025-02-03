@@ -12,7 +12,7 @@ export class UnsubscribePocComponent {
   constructor(private service: EnviarValorService) { }
 
   emitirValor(valor: string) {
-
+    this.service.emitirValor(valor);
   }
 
   destruirComponentes() {

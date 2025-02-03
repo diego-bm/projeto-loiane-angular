@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EnviarValorService } from '../../enviar-valor.service';
+import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-poc-unsub',
@@ -9,11 +10,29 @@ import { EnviarValorService } from '../../enviar-valor.service';
     </app-poc-base>
   `
 })
-export class PocUnsubComponent {
+export class PocUnsubComponent implements OnInit, OnDestroy {
   nome = 'Componente com unsubscribe';
   valor: string;
 
+  sub: Subscription[] = [];
+
   constructor(private service: EnviarValorService) { 
     this.valor = '';
+  }
+
+  ngOnInit(): void {
+    this.sub.push(this.service.getValor()
+    .pipe(
+      tap(v => console.log(this.nome, v))
+    )
+      .subscribe(novoValor => this.valor = novoValor));
+  }
+
+  ngOnDestroy() {
+    this.sub.forEach(s => {
+      s.unsubscribe();
+    });
+
+    console.log(`${this.nome} foi destruído.`)
   }
 }
