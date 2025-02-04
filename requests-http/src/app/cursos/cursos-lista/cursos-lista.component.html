@@ -5,10 +5,11 @@
         </div>
         <div class="float-right">
             <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Curso</button>
+            <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
         </div>
     </div>
     <div class="card-body">
-        <ng-container *ngIf="cursos$ | async as cursos; else loading">
+        <ng-container *ngIf="cursos$ | async as cursos; else loadingError">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -39,8 +40,18 @@
             </table>
         </ng-container>
 
-        <ng-template #loading>
-            <span>Carregando Cursos...</span>
+        <!-- Atualmente, o botão de Atualizar não mostra o template "loading"
+        novamente enquanto carrega os dados. Isso, entretanto, não será 
+        consertado agora por que a Loiane irá mudar isso para um alert
+        do Bootstrap na próxima aula, e eu imagino que esse bug será
+        corrigido, ou a lógica completamente alterada. -->
+        <ng-template #loadingError>
+            <div *ngIf="error$ | async; else loading">
+                Erro ao carregar cursos. Tente novamente mais tarde.
+            </div>
+            <ng-template #loading>
+                <span>Carregando Cursos...</span>
+            </ng-template>
         </ng-template>
     </div>
 </div>
