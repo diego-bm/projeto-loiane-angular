@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CursosService } from '../cursos.service';
 import { Curso } from '../models/curso.model';
 import { catchError, EMPTY, Observable, Subject } from 'rxjs';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -14,9 +12,6 @@ import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.comp
   preserveWhitespaces: true
 })
 export class CursosListaComponent implements OnInit {
-
-  bsModalRef: BsModalRef;
-
   // cursos: Curso[];
 
   // Anotação finlandesa (feita por um brasileiro): Adicionar '$' no final
@@ -24,11 +19,7 @@ export class CursosListaComponent implements OnInit {
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
 
-  constructor(
-    private service: CursosService,
-    private modalService: BsModalService
-  ) {
-    this.bsModalRef = new BsModalRef();
+  constructor(private service: CursosService) {
     // this.cursos = [];
     this.cursos$ = EMPTY;
   }
@@ -54,11 +45,7 @@ export class CursosListaComponent implements OnInit {
       // no final das operações do pipe
       this.service.list()
         .pipe(
-          catchError((error: any) => {
-            console.error(error);
-            this.handleError();
-            return EMPTY;
-          })
+          catchError(error => EMPTY)
         )
         .subscribe(
           dados => {
@@ -66,15 +53,9 @@ export class CursosListaComponent implements OnInit {
           },
           // Essa forma de lidar com o subscribe é defasada, mas não foi
           // por isso que a Loiane comentou esse trecho.
-
+          
           // error => console.error(error),
-          // () => console.log('Observable completo!')
+          // () => console.log('Observable completo!')        
         );
-  }
-
-  handleError() {
-    this.bsModalRef = this.modalService.show(AlertModalComponent);
-    this.bsModalRef.content.type = 'danger';
-    this.bsModalRef.content.message = 'Erro ao carregar cursos. Tente novamente mais tarde.';
   }
 }
