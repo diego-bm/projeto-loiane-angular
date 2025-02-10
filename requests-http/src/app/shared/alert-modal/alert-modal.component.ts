@@ -7,12 +7,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./alert-modal.component.css']
 })
 export class AlertModalComponent {
-  modalRef: BsModalRef = new BsModalRef;
-
   @Input() message: string;
   @Input() type: string = 'md-local';
 
-  constructor(private modalService: BsModalService) {
+  constructor(private modalRef: BsModalRef) {
     this.message = '';
   }
 
