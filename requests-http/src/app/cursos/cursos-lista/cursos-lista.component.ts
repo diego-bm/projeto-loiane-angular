@@ -53,26 +53,28 @@ export class CursosListaComponent implements OnInit {
         })
       );
 
-      // Sempre que for usar o catchError do rxjs, é importante deixar ele
-      // no final das operações do pipe
-      this.service.list()
-        .pipe(
-          catchError(error => {
-            console.error(error);
-            this.handleError();
-            return EMPTY;
-          })
-        )
-        .subscribe(
-          dados => {
-            console.log(dados)
-          },
-          // Essa forma de lidar com o subscribe é defasada, mas não foi
-          // por isso que a Loiane comentou esse trecho.
+      // A Loiane mandou comentar isso aqui por que não será necessário, mas
+      // o model de erro quebra se faz isso????
+      // // Sempre que for usar o catchError do rxjs, é importante deixar ele
+      // // no final das operações do pipe
+      // this.service.list()
+      //   .pipe(
+      //     catchError(error => {
+      //       console.error(error);
+      //       this.handleError();
+      //       return EMPTY;
+      //     })
+      //   )
+      //   .subscribe(
+      //     dados => {
+      //       console.log(dados)
+      //     },
+      //     // Essa forma de lidar com o subscribe é defasada, mas não foi
+      //     // por isso que a Loiane comentou esse trecho.
 
-          // error => console.error(error),
-          // () => console.log('Observable completo!')
-        );
+      //     // error => console.error(error),
+      //     // () => console.log('Observable completo!')
+      //   );
   }
 
   handleError() {
