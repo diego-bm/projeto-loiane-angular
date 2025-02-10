@@ -4,6 +4,7 @@ import { Curso } from '../models/curso.model';
 import { catchError, EMPTY, Observable, Subject } from 'rxjs';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AlertModalService } from 'src/app/shared/alert-modal.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -23,9 +24,13 @@ export class CursosListaComponent implements OnInit {
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
 
+  // A lLoiane deixou comentado o ModalService aqui, mas foi apenas para
+  // quem estivesse acompanhando o código fonte junto dela na época, para
+  // não perderem o serviço caso estivessem usando o repositório de forma
+  // atualizada.
   constructor(
     private service: CursosService,
-    private modalService: BsModalService
+    private alertService: AlertModalService
   ) {
     // this.cursos = [];
     this.cursos$ = EMPTY;
@@ -71,8 +76,10 @@ export class CursosListaComponent implements OnInit {
   }
 
   handleError() {
-    this.modalRef = this.modalService.show(AlertModalComponent);
-    this.modalRef.content.type = 'danger';
-    this.modalRef.content.message = 'Erro ao carregar cursos. Tente novamente mais tarde.';
+    this.alertService.showAlertDanger('Erro ao carregar cursos. Tente novamente mais tarde.');
+
+    // this.modalRef = this.modalService.show(AlertModalComponent);
+    // this.modalRef.content.type = 'danger';
+    // this.modalRef.content.message = 'Erro ao carregar cursos. Tente novamente mais tarde.';
   }
 }
