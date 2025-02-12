@@ -36,7 +36,7 @@ export class CursosFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let registro = null;
+    // let registro = null;
 
     // this.route.params.subscribe(
     //   (params: any) => {
@@ -56,24 +56,30 @@ export class CursosFormComponent implements OnInit, OnDestroy {
 
     // console.log(registro);
 
-    // Aqui não precisa desinscrever por que o Angular automaticamente se
-    // desinscreve de Observables que são destruídos, QUANDO É UM
-    // ACTIVATEDROUTE
-    this.route.params
-    .pipe(
-      map((params: any) => params['id']),
-      switchMap(id => this.service.loadByID(id))
-      // switchMap(curso => obterAulas(curso.id)
-    )
-    .subscribe((curso: Curso) => this.updateForm(curso));
+    // // Aqui não precisa desinscrever por que o Angular automaticamente se
+    // // desinscreve de Observables que são destruídos, QUANDO É UM
+    // // ACTIVATEDROUTE
+    // this.route.params
+    // .pipe(
+    //   map((params: any) => params['id']),
+    //   switchMap(id => this.service.loadByID(id))
+    //   // switchMap(curso => obterAulas(curso.id)
+    // )
+    // .subscribe((curso: Curso) => this.updateForm(curso));
 
     // concatMap -> ordem da requisição importa
     // mergeMap -> ordem da requisição não importa
     // exhaustMap -> casos de login
 
+    let curso = this.route.snapshot.data['curso'];
+
+    // let curso = this.route.data.subscribe((resolvedData) => {
+    //   return resolvedData['curso'];
+    // })
+
     this.form = this.fb.group({
-      id: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      id: [curso.id],
+      nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
     });
   }
 

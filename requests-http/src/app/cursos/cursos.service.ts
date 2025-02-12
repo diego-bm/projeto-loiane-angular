@@ -22,7 +22,11 @@ export class CursosService {
   }
 
   loadByID(id: number) {
-    return this.http.get<Curso>(`${this.API}/${id}`).pipe(take(1));
+    if(id) {
+      return this.http.get<Curso>(`${this.API}/${id}`).pipe(take(1));
+    } else {
+      return null;
+    }
   }
 
   create(curso: Curso) {
