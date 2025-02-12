@@ -1,9 +1,11 @@
-import { ValidationErrors } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CursosService } from '../cursos.service';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+import { ActivatedRoute } from '@angular/router';
+import { map, Observable, Subscription, switchMap } from 'rxjs';
+import { Curso } from '../models/curso.model';
 
 @Component({
   selector: 'app-cursos-form',
@@ -19,7 +21,8 @@ export class CursosFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private service: CursosService,
     private modal: AlertModalService,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({});
   }
@@ -33,8 +36,51 @@ export class CursosFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    let registro = null;
+
+    // this.route.params.subscribe(
+    //   (params: any) => {
+    //     const id = params['id'];
+    //     console.log(id);
+
+    //     const curso$: Observable<Curso> = this.service.loadByID(id);
+
+    //     if(id) {
+    //       curso$.subscribe(curso => {
+    //         registro = curso;
+    //         this.updateForm(curso)
+    //       });
+    //     }
+    //   }
+    // )
+
+    // console.log(registro);
+
+    // Aqui não precisa desinscrever por que o Angular automaticamente se
+    // desinscreve de Observables que são destruídos, QUANDO É UM
+    // ACTIVATEDROUTE
+    this.route.params
+    .pipe(
+      map((params: any) => params['id']),
+      switchMap(id => this.service.loadByID(id))
+      // switchMap(curso => obterAulas(curso.id)
+    )
+    .subscribe((curso: Curso) => this.updateForm(curso));
+
+    // concatMap -> ordem da requisição importa
+    // mergeMap -> ordem da requisição não importa
+    // exhaustMap -> casos de login
+
     this.form = this.fb.group({
+      id: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+    });
+  }
+
+  updateForm(curso: Curso) {
+    this.form.patchValue({
+      id: curso.id,
+      nome: curso.nome
     });
   }
 
