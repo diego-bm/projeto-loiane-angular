@@ -7,6 +7,13 @@ import { ActivatedRoute } from '@angular/router';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { Curso } from '../models/curso.model';
 
+enum MessageStrings {
+  CREATE_SUCCESS = 'Curso criado com sucesso!',
+  CREATE_ERROR = 'Erro ao criar curso, tente novamente!',
+  UPDATE_SUCCESS = 'Curso atualizado com sucesso!',
+  UPDATE_ERROR = 'Erro ao atualizar curso, tente novamente!'
+}
+
 @Component({
   selector: 'app-cursos-form',
   templateUrl: './cursos-form.component.html',
@@ -15,6 +22,7 @@ import { Curso } from '../models/curso.model';
 export class CursosFormComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   showSuccessModal: boolean = false;
+  modalMessage: string = '';
   form: FormGroup;
 
   constructor(
@@ -31,7 +39,7 @@ export class CursosFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if(this.showSuccessModal) {
       this.showSuccessModal = false;
-      this.modal.showAlertSuccess('Curso criado com sucesso!');
+      this.modal.showAlertSuccess(this.modalMessage);
     }
   }
 
@@ -80,17 +88,10 @@ export class CursosFormComponent implements OnInit, OnDestroy {
     console.log('curso: ', curso);
 
     if(curso) {
-      if(curso.id) {
-        this.form = this.fb.group({
-          id: [curso.id],
-          nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
-        });
-      } else {
-        this.form = this.fb.group({
-          id: [null],
-          nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
-        });
-      }
+      this.form = this.fb.group({
+        id: [curso.id],
+        nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      });
     } else {
       this.form = this.fb.group({
         id: [null],
@@ -126,17 +127,60 @@ export class CursosFormComponent implements OnInit, OnDestroy {
 
     if(this.form.valid) {
       console.log('submit');
-      // De acordo com o seguinte issue: https://github.com/typicode/json-server/issues/1477
-      // o json-server gera ids como string mesmo, é parte da V1 dele.
-      // (vai entender por que)
-      this.service.create(this.form.value).subscribe(
+
+      this.service.save(this.form.value).subscribe(
         success => {
           this.showSuccessModal = true;
+
+          if(this.form.value.id) {
+            this.modalMessage = MessageStrings.UPDATE_SUCCESS;
+          } else {
+            this.modalMessage = MessageStrings.CREATE_SUCCESS;
+          }
+
           this.location.back();
         },
-        error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente!'),
-        () => console.log('request completo')
-      );
+        error => {
+          if(this.form.value.id) {
+            this.modalMessage = MessageStrings.UPDATE_ERROR;
+          } else {
+            this.modalMessage = MessageStrings.CREATE_ERROR;
+          }
+
+          this.modal.showAlertDanger(this.modalMessage);
+        }
+      )
+
+        // if(this.form.value.id) {
+        //   // update
+        //   this.service.update(this.form.value).subscribe(
+        //     success => {
+        //       this.showSuccessModal = true;
+        //       this.modalMessage = MessageStrings.UPDATE_SUCCESS;
+        //       this.location.back();
+        //     },
+        //     error => {
+        //       this.modal.showAlertDanger(MessageStrings.UPDATE_ERROR);
+        //     },
+        //     () => console.log('update completo')
+        //   )
+        // } else {
+        //   // De acordo com o seguinte issue: https://github.com/typicode/json-server/issues/1477
+        //   // o json-server gera ids como string mesmo, é parte da V1 dele.
+        //   // (vai entender por que)
+        //   this.service.create(this.form.value).subscribe(
+        //     success => {
+        //       this.showSuccessModal = true;
+        //       this.modalMessage = MessageStrings.CREATE_SUCCESS;
+        //       this.location.back();
+        //     },
+        //     error => this.modal.showAlertDanger(MessageStrings.CREATE_ERROR),
+        //     () => console.log('request completo')
+        //   );
+        // }
+
+
+
     }
   }
 
