@@ -77,18 +77,34 @@ export class CursosFormComponent implements OnInit, OnDestroy {
     //   return resolvedData['curso'];
     // })
 
-    this.form = this.fb.group({
-      id: [curso.id],
-      nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
-    });
+    console.log('curso: ', curso);
+
+    if(curso) {
+      if(curso.id) {
+        this.form = this.fb.group({
+          id: [curso.id],
+          nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+        });
+      } else {
+        this.form = this.fb.group({
+          id: [null],
+          nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+        });
+      }
+    } else {
+      this.form = this.fb.group({
+        id: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      });
+    }
   }
 
-  updateForm(curso: Curso) {
-    this.form.patchValue({
-      id: curso.id,
-      nome: curso.nome
-    });
-  }
+  // updateForm(curso: Curso) {
+  //   this.form.patchValue({
+  //     id: curso.id,
+  //     nome: curso.nome
+  //   });
+  // }
 
   hasError(field: string): boolean {
     let errors = this.form.get(field)?.errors;

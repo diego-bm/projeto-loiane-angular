@@ -30,6 +30,16 @@ export class CursosService {
   }
 
   create(curso: Curso) {
+    // Se o curso não tiver id, é um novo registro. Se enviar id como null
+    // pro json-server, ele vai salvar o registro com null como seu id.
+    // Para impedir isso, passo um objeto sem o atributo id, e deixo o
+    // json-server criar o id automaticamente.
+    if(!curso.id) {
+      let cursoObject = { nome: curso.nome };
+
+      return this.http.post(this.API, cursoObject).pipe(take(1));
+    }
+
     return this.http.post(this.API, curso).pipe(take(1));
   }
 
