@@ -16,12 +16,12 @@ export class AlertModalService {
 constructor(private modalService: BsModalService) { }
 
 private showAlert(message: string, type: AlertTypes, dismissTimeout?: number) {
-  const modalRef: BsModalRef = this.modalService.show(AlertModalComponent);
-  modalRef.content.type = type;
-  modalRef.content.message = message;
+  const bsModalRef: BsModalRef = this.modalService.show(AlertModalComponent);
+  bsModalRef.content.type = type;
+  bsModalRef.content.message = message;
 
   if(dismissTimeout) {
-    setTimeout(() => modalRef.hide(), dismissTimeout);
+    setTimeout(() => bsModalRef.hide(), dismissTimeout);
   }
 }
 
@@ -46,6 +46,8 @@ showConfirm(title: string, msg: string, okTxt?: string, cancelTxt?: string) {
   if(cancelTxt) {
     bsModalRef.content.cancelTxt = cancelTxt;
   }
+
+  return (<ConfirmModalComponent>bsModalRef.content).confirmResult;
 }
 
 }

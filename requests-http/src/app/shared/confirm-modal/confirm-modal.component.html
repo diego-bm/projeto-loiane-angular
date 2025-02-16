@@ -1,16 +1,26 @@
-<ng-template #template>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">{{ title }}</h4>
-      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="onClose()">
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      {{ msg }}
-
-      <button type="button" class="btn btn-default" (click)="onClose()">{{ okTxt }}</button>
-      <button type="button" class="btn btn-primary" (click)="onConfirm()">{{ cancelTxt }}</button>
-    </div>
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
   </div>
-</ng-template>
+
+  <div class="modal-body">
+    <p>{{ msg }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="onClose()">
+      {{ cancelTxt }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onConfirm()">
+      {{ okTxt }}
+    </button>
+  </div>
+</div>
