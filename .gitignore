@@ -1,2 +1,8 @@
 
 angular2-crud-auth-routing/angular2-crud-auth-routing/
+
+# node
+# Provavelmente por que isso não é um projeto do Angular, o node_modules
+# não é automaticamente ignorado, então precisamos especificar isso aqui.
+/server/node_modules
+/server/uploads
