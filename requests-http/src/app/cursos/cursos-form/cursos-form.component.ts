@@ -6,6 +6,7 @@ import { AlertModalService } from 'src/app/shared/alert-modal.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { Curso } from '../models/curso.model';
+import { Cursos2Service } from '../cursos2.service';
 
 enum MessageStrings {
   CREATE_SUCCESS = 'Curso criado com sucesso!',
@@ -27,7 +28,7 @@ export class CursosFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private service: CursosService,
+    private service: Cursos2Service,
     private modal: AlertModalService,
     private location: Location,
     private route: ActivatedRoute
