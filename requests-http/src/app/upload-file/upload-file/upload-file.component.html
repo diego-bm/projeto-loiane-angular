@@ -3,7 +3,11 @@
     <label for="formFileMultiple" class="form-label">Selecionar Arquivos</label>
     <!-- Não precisei fazer o código extra para mostrar o nome do arquivo.
     Na versão mais nova do Bootstrap, isso provavelmente é consertado. -->
-    <input class="form-control" type="file" id="formFileMultiple" multiple>
+    <input class="form-control" type="file" id="formFileMultiple" multiple (change)="onChange($event)">
   </div>
+</div>
+
+<div style="margin-top: 10px;">
+  <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!files">Upload</button>
 </div>
 

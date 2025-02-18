@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Removeremos isso em uma aula futura
 const corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200
