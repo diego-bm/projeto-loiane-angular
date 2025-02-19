@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
+import { enviroment } from 'src/enviroments/enviroment.development';
 
 @Component({
   selector: 'app-upload-file',
@@ -19,7 +20,7 @@ export class UploadFileComponent implements OnInit {
 
   onUpload() {
     if(this.files && this.files.size > 0) {
-      this.service.upload(this.files, 'http://localhost:8000/upload')
+      this.service.upload(this.files, enviroment.BASE_URL + '/upload')
       .subscribe(response => console.log('Upload Concluído'));
       // TODO: Lição de casa: fazer o unsubscribe disso aqui no ngOnDestroy.
     }
