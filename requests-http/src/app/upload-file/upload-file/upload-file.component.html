@@ -1,19 +1,53 @@
-<div style="margin-top: 10px;">
+<div style="margin-top: 10px">
   <div class="mb-3">
     <label for="formFileMultiple" class="form-label">Selecionar Arquivos</label>
     <!-- Não precisei fazer o código extra para mostrar o nome do arquivo.
     Na versão mais nova do Bootstrap, isso provavelmente é consertado. -->
-    <input class="form-control" type="file" id="formFileMultiple" multiple (change)="onChange($event)">
+    <input
+      class="form-control"
+      type="file"
+      id="formFileMultiple"
+      multiple
+      (change)="onChange($event)"
+    />
   </div>
 </div>
 
 <div class="progress">
-  <div class="progress-bar" role="progressbar" [style.width]="progress + '%'">{{ progress }}%</div>
+  <div class="progress-bar" role="progressbar" [style.width]="progress + '%'">
+    {{ progress }}%
+  </div>
 </div>
 
-<div style="margin-top: 10px;">
-  <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!files">Upload</button>
+<div style="margin-top: 10px">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onUpload()"
+    [disabled]="!files"
+  >
+    Upload
+  </button>
 </div>
 
+<div style="margin-top: 10px">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onDownloadExcel()"
 
+  >
+    Download Excel
+  </button>
+</div>
 
+<div style="margin-top: 10px">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onDownloadPDF()"
+
+  >
+  Download PDF
+  </button>
+</div>

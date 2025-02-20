@@ -61,4 +61,22 @@ export class UploadFileComponent implements OnInit {
 
     this.progress = 0;
   }
+
+  // Angular não mexe com downloads, é JS puro.
+  // É necessário, por conta disso, fazer implementações que lidem com
+  // diferentes browsers para que os arquivos possam ser baixados
+  // corretamente.
+  onDownloadExcel() {
+    this.service.download(enviroment.BASE_URL + '/downloadExcel')
+    .subscribe((res: any) => {
+      this.service.handleFile(res, 'report.xlsx');
+    });
+  }
+
+  onDownloadPDF() {
+    this.service.download(enviroment.BASE_URL + '/downloadPDF')
+    .subscribe((res: any) => {
+      this.service.handleFile(res, 'report.pdf');
+    });
+  }
 }
