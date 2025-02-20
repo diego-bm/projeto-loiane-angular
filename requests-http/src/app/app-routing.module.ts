@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// Essa forma de fazer as rotas usando o then() é lazy loading, e virou
+// padrão após o Angular 8.
 const routes: Routes = [
   {
     // Durante desenvolvimento LOCAL, é legal trocar esse redirect para a
     // página que você está trabalhando.
-    path: '', pathMatch: 'full', redirectTo: 'upload'
+    path: '', pathMatch: 'full', redirectTo: 'pesquisa-reativa'
   },
   {
     path: 'cursos',
@@ -18,6 +20,10 @@ const routes: Routes = [
   {
     path: 'rxjs-poc',
     loadChildren: () => import('./unsubscribe-rxjs/unsubscribe-rxjs.module').then(x => x.UnsubscribeRxjsModule)
+  },
+  {
+    path: 'pesquisa-reativa',
+    loadChildren: () => import('./reactive-search/reactive-search.module').then(x => x.ReactiveSearchModule)
   }
 ];
 
