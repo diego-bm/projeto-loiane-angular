@@ -1,6 +1,6 @@
-import { map, pipe, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, pipe, switchMap, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -9,8 +9,9 @@ import { Observable } from 'rxjs';
   templateUrl: './lib-search.component.html',
   styleUrls: ['./lib-search.component.scss']
 })
-export class LibSearchComponent {
-  readonly SEARCH_URL = 'https://api.cdnjs.com/libraries'
+export class LibSearchComponent implements OnInit {
+  readonly SEARCH_URL: string = 'https://api.cdnjs.com/libraries'
+  readonly FIELDS: string = 'name,description,version,homepage';
 
   total: number = 0;
 
@@ -19,8 +20,30 @@ export class LibSearchComponent {
 
   constructor(private http: HttpClient) { }
 
+  ngOnInit(): void {
+    this.results$ = this.queryField.valueChanges
+    .pipe(
+      map(value => value.trim()),
+      filter(value => value.length > 1),
+      debounceTime(200),
+      distinctUntilChanged(),
+      // tap(value => console.log(value)),
+      switchMap(value => this.http.get(this.SEARCH_URL, {
+        params: {
+          search: value,
+          fields: this.FIELDS
+        }
+      })),
+      tap((res: any) => this.total = res.total),
+      map((res: any) => {
+        return res.results
+      })
+    );
+  }
+
   onSearch() {
     const fields: string = 'name,description,version,homepage';
+
     let value = this.queryField.value;
     if (value && (value = value.trim()) !== '') {
 
