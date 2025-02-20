@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
 import { enviroment } from 'src/enviroments/enviroment.development';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-upload-file',
@@ -8,6 +9,7 @@ import { enviroment } from 'src/enviroments/enviroment.development';
   styleUrls: ['./upload-file.component.scss']
 })
 export class UploadFileComponent implements OnInit {
+  progress: number = 0;
   // O set, assim como um array, permite que uma lista de valores sejam
   // armazenados. A diferença é que o set não permite valores duplicados.
   files?: Set<File>;
@@ -21,7 +23,18 @@ export class UploadFileComponent implements OnInit {
   onUpload() {
     if(this.files && this.files.size > 0) {
       this.service.upload(this.files, enviroment.BASE_URL + '/upload')
-      .subscribe(response => console.log('Upload Concluído'));
+      .subscribe((event: HttpEvent<Object>) => {
+        // HttpEventType
+        console.log(event)
+        if(event.type === HttpEventType.Response) {
+          console.log('Upload Concluído')
+        } else if(event.type === HttpEventType.UploadProgress) {
+          const percentDone = Math.round(((event.loaded * 100) / <number>event.total));
+          console.log('Progresso', percentDone);
+          this.progress = percentDone;
+        }
+
+      });
       // TODO: Lição de casa: fazer o unsubscribe disso aqui no ngOnDestroy.
     }
   }
@@ -34,6 +47,6 @@ export class UploadFileComponent implements OnInit {
       this.files.add(selectedFiles!.item(i)!);
     }
 
-    console.log(this.files);
+    this.progress = 0;
   }
 }
