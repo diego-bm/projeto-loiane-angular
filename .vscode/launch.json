@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Docker Node.js Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "platform": "node",
+            "node": {
+                "package": "${workspaceFolder}/server/node_modules/connect-multiparty/package.json",
+                "localRoot": "${workspaceFolder}/server/node_modules/connect-multiparty"
+            }
+        }
+    ]
+}
